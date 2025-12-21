@@ -16,6 +16,9 @@ export default function Home() {
         </div>
         <span className="text-xs text-gray-400 tracking-widest">2024</span>
       </div>
+      <div className="absolute bottom-5 right-4 w-60 h-20 bg-white text-white">
+        AAAAAAAAA
+      </div>
       {/* Top Left Corner Accent */}
       <div className="absolute top-32 left-8 flex flex-col gap-2 z-20 pointer-events-none">
         <div className="w-12 h-px bg-black"></div>
