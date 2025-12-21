@@ -63,10 +63,10 @@ export default function Contact() {
   ];
 
   return (
-    <div className="w-full h-full flex flex-col relative">
+    <div className="w-full h-full flex flex-col relative overflow-y-auto">
       {/* Geometric Elements */}
       {/* Top Left */}
-      <div className="absolute top-8 left-12 flex flex-col gap-2 z-20 pointer-events-none">
+      <div className="hidden md:flex absolute top-8 left-12 flex-col gap-2 z-20 pointer-events-none">
         <div className="flex gap-2 items-center">
           <div className="w-4 h-4 bg-black"></div>
           <div className="w-4 h-4 border-2 border-black"></div>
@@ -76,7 +76,7 @@ export default function Contact() {
       </div>
 
       {/* Top Right */}
-      <div className="absolute top-8 right-12 flex flex-col items-end gap-2 z-20 pointer-events-none">
+      <div className="hidden md:flex absolute top-8 right-12 flex-col items-end gap-2 z-20 pointer-events-none">
         <div className="flex gap-1">
           <div className="w-2 h-2 rounded-full bg-black"></div>
           <div className="w-2 h-2 rounded-full bg-gray-400"></div>
@@ -86,12 +86,14 @@ export default function Contact() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex items-center justify-center px-12 py-8">
-        <div className="w-full max-w-4xl flex gap-16">
+      <div className="flex-1 flex items-center justify-center px-4 md:px-12 py-6 md:py-8">
+        <div className="w-full max-w-4xl flex flex-col md:flex-row gap-8 md:gap-16">
           {/* Left Side - Info */}
           <div className="flex-1 flex flex-col justify-center">
-            <h1 className="text-6xl font-bold mb-4">Let's Talk</h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <h1 className="text-4xl md:text-6xl font-bold mb-2 md:mb-4">
+              Let's Talk
+            </h1>
+            <p className="text-base md:text-xl text-gray-600 mb-6 md:mb-8">
               Have a project in mind or want to collaborate? Feel free to reach
               out!
             </p>
@@ -128,8 +130,8 @@ export default function Contact() {
 
           {/* Right Side - Form */}
           <div className="flex-1">
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-2 gap-4">
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Name
@@ -224,14 +226,14 @@ export default function Contact() {
       </div>
 
       {/* Footer - Similar to Home header */}
-      <footer className="border-t border-dashed border-black">
-        <div className="flex w-full py-6 px-8">
+      <footer className="border-t border-dashed border-black flex-shrink-0">
+        <div className="flex flex-wrap md:flex-nowrap w-full py-4 md:py-6 px-4 md:px-8">
           {socialLinks.map((social, index) => (
             <div
               key={social.name}
-              className={`flex-1 flex items-center justify-center gap-3 ${
+              className={`w-1/2 md:flex-1 flex items-center justify-center gap-2 md:gap-3 py-2 md:py-0 ${
                 index !== socialLinks.length - 1
-                  ? "border-r border-dashed border-black"
+                  ? "md:border-r md:border-dashed md:border-black"
                   : ""
               }`}
             >
@@ -239,12 +241,14 @@ export default function Contact() {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 group"
+                className="flex items-center gap-2 md:gap-3 group"
               >
-                <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <i className={`${social.icon} text-white text-lg`}></i>
+                <div className="w-8 h-8 md:w-10 md:h-10 bg-black rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <i
+                    className={`${social.icon} text-white text-sm md:text-lg`}
+                  ></i>
                 </div>
-                <span className="font-medium group-hover:underline">
+                <span className="text-sm md:text-base font-medium group-hover:underline">
                   {social.name}
                 </span>
               </a>

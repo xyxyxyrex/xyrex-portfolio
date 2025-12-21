@@ -124,10 +124,10 @@ export default function Projects() {
 
   return (
     <>
-      <div className="w-full h-full flex flex-col items-center justify-center px-12 py-6 relative">
+      <div className="w-full h-full flex flex-col items-center justify-start md:justify-center px-4 md:px-12 py-4 md:py-6 relative overflow-y-auto">
         {/* Geometric Elements */}
         {/* Top Left */}
-        <div className="absolute top-8 left-12 flex flex-col gap-2 z-20 pointer-events-none">
+        <div className="hidden md:flex absolute top-8 left-12 flex-col gap-2 z-20 pointer-events-none">
           <div className="flex gap-2 items-center">
             <div className="w-4 h-4 bg-black"></div>
             <div className="w-4 h-4 border-2 border-black"></div>
@@ -138,7 +138,7 @@ export default function Projects() {
         </div>
 
         {/* Top Right */}
-        <div className="absolute top-8 right-12 flex flex-col items-end gap-2 z-20 pointer-events-none">
+        <div className="hidden md:flex absolute top-8 right-12 flex-col items-end gap-2 z-20 pointer-events-none">
           <div className="flex gap-1">
             <div className="w-8 h-1 bg-black"></div>
             <div className="w-4 h-1 bg-gray-400"></div>
@@ -151,7 +151,7 @@ export default function Projects() {
         </div>
 
         {/* Bottom Left */}
-        <div className="absolute bottom-8 left-12 flex flex-col gap-2 z-20 pointer-events-none">
+        <div className="hidden md:flex absolute bottom-8 left-12 flex-col gap-2 z-20 pointer-events-none">
           <div className="flex gap-1">
             <div className="w-1 h-8 bg-black"></div>
             <div className="w-1 h-5 bg-gray-400"></div>
@@ -164,7 +164,7 @@ export default function Projects() {
         </div>
 
         {/* Bottom Right */}
-        <div className="absolute bottom-8 right-12 flex flex-col items-end gap-2 z-20 pointer-events-none">
+        <div className="hidden md:flex absolute bottom-8 right-12 flex-col items-end gap-2 z-20 pointer-events-none">
           <div className="grid grid-cols-4 gap-0.5">
             {[...Array(16)].map((_, i) => (
               <div
@@ -181,22 +181,24 @@ export default function Projects() {
         </div>
 
         {/* Header */}
-        <div className="w-full max-w-7xl mb-6">
-          <h1 className="text-6xl font-bold mb-2">Code Projects</h1>
-          <h2 className="text-lg text-gray-600">
+        <div className="w-full max-w-7xl mb-4 md:mb-6 mt-2 md:mt-0">
+          <h1 className="text-3xl md:text-6xl font-bold mb-1 md:mb-2">
+            Code Projects
+          </h1>
+          <h2 className="text-sm md:text-lg text-gray-600">
             This is a list of my work, both in Web and Mobile
           </h2>
         </div>
 
         {/* Projects Grid - 3 columns, 2 rows */}
         <div
-          className="grid grid-cols-3 gap-6 w-full max-w-7xl"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full max-w-7xl pb-4 md:pb-0"
           style={{ gridAutoRows: "1fr" }}
         >
           {projects.map((project) => (
             <div
               key={project.id}
-              className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-[280px]"
+              className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-[240px] md:h-[280px]"
             >
               {/* Image Banner */}
               <div className="relative h-[180px] flex-shrink-0 overflow-hidden bg-gray-100">
@@ -283,11 +285,11 @@ export default function Projects() {
             </div>
 
             {/* Main Image */}
-            <div className="relative flex-1 bg-gray-100 flex items-center justify-center min-h-[400px]">
+            <div className="relative flex-1 bg-gray-100 flex items-center justify-center min-h-[250px] md:min-h-[400px]">
               <img
                 src={activeProject.images[activeImageIndex]}
                 alt={`${activeProject.title} - Image ${activeImageIndex + 1}`}
-                className="max-w-full max-h-[400px] object-contain"
+                className="max-w-full max-h-[250px] md:max-h-[400px] object-contain"
                 onError={(e) => {
                   e.target.src = "";
                   e.target.alt = "Image not found";

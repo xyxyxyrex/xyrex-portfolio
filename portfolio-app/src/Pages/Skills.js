@@ -78,7 +78,7 @@ export default function Skills() {
           {duplicatedTop.map((img, index) => (
             <div
               key={index}
-              className="relative flex-shrink-0 w-[420px] h-[90%] rounded-2xl overflow-hidden shadow-xl"
+              className="relative flex-shrink-0 w-[200px] md:w-[420px] h-[90%] rounded-xl md:rounded-2xl overflow-hidden shadow-lg md:shadow-xl"
             >
               <img
                 src={img}
@@ -107,9 +107,9 @@ export default function Skills() {
       </div>
 
       {/* Middle Row - Heading and Subheading */}
-      <div className="text-center py-6 z-10 flex-shrink-0 relative w-full">
+      <div className="text-center py-4 md:py-6 z-10 flex-shrink-0 relative w-full">
         {/* Geometric Elements - Left */}
-        <div className="absolute left-12 top-1/2 -translate-y-1/2 flex items-center gap-4 pointer-events-none">
+        <div className="hidden md:flex absolute left-12 top-1/2 -translate-y-1/2 items-center gap-4 pointer-events-none">
           <div className="flex flex-col gap-2">
             <div className="flex gap-1">
               <div className="w-3 h-3 bg-black"></div>
@@ -126,7 +126,7 @@ export default function Skills() {
         </div>
 
         {/* Geometric Elements - Right */}
-        <div className="absolute right-12 top-1/2 -translate-y-1/2 flex items-center gap-4 pointer-events-none">
+        <div className="hidden md:flex absolute right-12 top-1/2 -translate-y-1/2 items-center gap-4 pointer-events-none">
           <div className="flex flex-col gap-1">
             <div className="w-1 h-6 bg-gray-400"></div>
             <div className="w-1 h-10 bg-black"></div>
@@ -143,8 +143,10 @@ export default function Skills() {
           </div>
         </div>
 
-        <h1 className="text-6xl font-bold mb-4">Design Projects</h1>
-        <h2 className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <h1 className="text-3xl md:text-6xl font-bold mb-2 md:mb-4">
+          Design Projects
+        </h1>
+        <h2 className="text-sm md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
           A showcase of my creative work in graphic design, UI/UX, and
           multimedia arts
         </h2>
@@ -167,7 +169,7 @@ export default function Skills() {
           {duplicatedBottom.map((img, index) => (
             <div
               key={index}
-              className="relative flex-shrink-0 w-[420px] h-[90%] rounded-2xl overflow-hidden shadow-xl"
+              className="relative flex-shrink-0 w-[200px] md:w-[420px] h-[90%] rounded-xl md:rounded-2xl overflow-hidden shadow-lg md:shadow-xl"
             >
               <img
                 src={img}

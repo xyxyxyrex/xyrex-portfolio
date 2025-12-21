@@ -140,10 +140,10 @@ export default function About() {
   };
 
   return (
-    <div className="w-3/4 h-full flex relative">
+    <div className="w-full md:w-3/4 h-full flex flex-col md:flex-row relative overflow-y-auto md:overflow-visible">
       {/* Geometric Elements */}
       {/* Top Right */}
-      <div className="absolute top-8 right-0 flex flex-col items-end gap-3 z-20 pointer-events-none">
+      <div className="hidden md:flex absolute top-8 right-0 flex-col items-end gap-3 z-20 pointer-events-none">
         <div className="flex gap-2 items-center">
           <span className="text-xs text-gray-400 tracking-widest">002</span>
           <div className="w-4 h-4 border-2 border-black"></div>
@@ -155,7 +155,7 @@ export default function About() {
         <div className="w-6 h-6 rounded-full border border-black"></div>
       </div>
       {/* Bottom Left */}
-      <div className="absolute bottom-8 left-0 flex flex-col gap-2 z-20 pointer-events-none">
+      <div className="hidden md:flex absolute bottom-8 left-0 flex-col gap-2 z-20 pointer-events-none">
         <div className="flex gap-2">
           <div className="w-3 h-3 bg-black"></div>
           <div className="w-3 h-3 bg-gray-400"></div>
@@ -165,7 +165,7 @@ export default function About() {
         <span className="text-xs text-gray-400 tracking-widest">ABOUT</span>
       </div>
       {/* Bottom Right */}
-      <div className="absolute bottom-8 right-0 flex flex-col items-end gap-2 z-20 pointer-events-none">
+      <div className="hidden md:flex absolute bottom-8 right-0 flex-col items-end gap-2 z-20 pointer-events-none">
         <div className="grid grid-cols-3 gap-1">
           <div className="w-2 h-2 bg-black"></div>
           <div className="w-2 h-2 bg-gray-300"></div>
@@ -181,8 +181,8 @@ export default function About() {
         </div>
       </div>
       {/* Left Side - Image */}
-      <div className="w-1/2 h-full flex items-center justify-center p-8">
-        <div className="w-80 h-full shadow-2xl bg-gray-200">
+      <div className="w-full md:w-1/2 h-48 md:h-full flex items-center justify-center p-4 md:p-8 flex-shrink-0">
+        <div className="w-40 md:w-80 h-full shadow-2xl bg-gray-200">
           {/* Replace src with your actual image */}
           <img
             src="/assets/myImage.png"
@@ -197,22 +197,26 @@ export default function About() {
         </div>
       </div>
       {/* Right Side - Paragraph + Scrolling Logos */}
-      <div className="w-3/4 h-full flex flex-col justify-center p-8">
+      <div className="w-full md:w-3/4 flex-1 flex flex-col justify-center p-4 md:p-8">
         {/* Paragraph */}
-        <div className="flex-2 mb-12">
-          <div className="mb-6">
-            <div className="text-left mb-12">
-              <h1 className="text-8xl font-bold mb-6">A Developer—</h1>
+        <div className="flex-2 mb-6 md:mb-12">
+          <div className="mb-4 md:mb-6">
+            <div className="text-left mb-6 md:mb-12">
+              <h1 className="text-4xl md:text-8xl font-bold mb-3 md:mb-6">
+                A Developer—
+              </h1>
               <div className="flex items-center justify-between">
-                <h1 className="text-8xl font-bold">and an Editor</h1>
-                <div className="flex gap-2">
+                <h1 className="text-4xl md:text-8xl font-bold">
+                  and an Editor
+                </h1>
+                <div className="hidden md:flex gap-2">
                   <span>■</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <p className="text-lg text-gray-700 leading-relaxed">
+          <p className="text-sm md:text-lg text-gray-700 leading-relaxed">
             Hello! I started web development back in 2021, driven by my
             background in multimedia arts. Over the years, I've honed my skills
             in both front-end and back-end technologies, as well as engaging in

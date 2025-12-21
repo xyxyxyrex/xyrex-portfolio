@@ -85,17 +85,19 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed bottom-20 left-20 m-4 z-50">
+      <nav className="fixed bottom-4 left-4 md:bottom-20 md:left-20 m-2 md:m-4 z-50">
         <ul
-          className={`flex flex-col p-4 rounded-lg text-black transition-all duration-500 ease-out ${
-            isScrolled ? "space-y-1" : "space-y-7"
+          className={`flex flex-col p-2 md:p-4 rounded-lg text-black transition-all duration-500 ease-out ${
+            isScrolled ? "space-y-0.5 md:space-y-1" : "space-y-2 md:space-y-7"
           }`}
         >
           {navLinks.map((link) => (
             <li key={link.id} className="relative">
               <a
                 className={`nav-link font-bold transition-all duration-300 ease-out inline-block origin-left relative z-10 ${
-                  isScrolled ? "text-2xl scale-75" : "text-5xl scale-100"
+                  isScrolled
+                    ? "text-base md:text-2xl scale-75"
+                    : "text-xl md:text-5xl scale-100"
                 } ${hoveredLink === link.id ? "nav-link-hovered" : ""}`}
                 href={`#${link.id}`}
                 onClick={(e) => handleNavClick(e, link.id)}
