@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 export default function Contact() {
+  const formRef = useRef();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -9,6 +11,11 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+
+  // EmailJS credentials from environment variables
+  const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+  const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+  const EMAILJS_PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
 
   const handleChange = (e) => {
     setFormData({
@@ -20,44 +27,46 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus(null);
 
-    // Create mailto link as fallback
-    const mailtoLink = `mailto:salazar.xyrexkyle@gmail.com?subject=${encodeURIComponent(
-      formData.subject
-    )}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    )}`;
+    try {
+      await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        EMAILJS_PUBLIC_KEY
+      );
 
-    // Open email client
-    window.location.href = mailtoLink;
-
-    setTimeout(() => {
-      setIsSubmitting(false);
       setSubmitStatus("success");
       setFormData({ name: "", email: "", subject: "", message: "" });
-      setTimeout(() => setSubmitStatus(null), 3000);
-    }, 1000);
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus(null), 5000);
+    }
   };
 
   const socialLinks = [
     {
       name: "LinkedIn",
-      url: "https://linkedin.com/in/yourprofile",
+      url: "https://www.linkedin.com/in/xyrex-kyle-salazar-36572a392/",
       icon: "fa-brands fa-linkedin-in",
     },
     {
       name: "GitHub",
-      url: "https://github.com/yourprofile",
+      url: "https://github.com/xyxyxyrex",
       icon: "fa-brands fa-github",
     },
     {
       name: "Facebook",
-      url: "https://facebook.com/yourprofile",
+      url: "https://www.facebook.com/xyxyrex/",
       icon: "fa-brands fa-facebook-f",
     },
     {
       name: "Instagram",
-      url: "https://instagram.com/yourprofile",
+      url: "https://www.instagram.com/xyxyreeex/",
       icon: "fa-brands fa-instagram",
     },
   ];
@@ -130,7 +139,11 @@ export default function Contact() {
 
           {/* Right Side - Form */}
           <div className="flex-1">
-            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              className="space-y-4 md:space-y-5"
+            >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -161,7 +174,6 @@ export default function Contact() {
                   />
                 </div>
               </div>
-
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Subject
@@ -176,7 +188,6 @@ export default function Contact() {
                   placeholder="What's this about?"
                 />
               </div>
-
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Message
@@ -191,7 +202,6 @@ export default function Contact() {
                   placeholder="Tell me about your project..."
                 />
               </div>
-
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -213,13 +223,19 @@ export default function Contact() {
                   </span>
                 )}
               </button>
-
               {submitStatus === "success" && (
                 <div className="flex items-center justify-center gap-2 text-green-600 font-medium">
                   <i className="fa-solid fa-check-circle"></i>
-                  Email client opened! Send your message there.
+                  Message sent successfully!
                 </div>
               )}
+              {submitStatus === "error" && (
+                <div className="flex items-center justify-center gap-2 text-red-600 font-medium">
+                  <i className="fa-solid fa-times-circle"></i>
+                  Failed to send. Please try again.
+                </div>
+              )}
+              )
             </form>
           </div>
         </div>
