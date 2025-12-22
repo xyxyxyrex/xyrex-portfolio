@@ -235,7 +235,6 @@ export default function Contact() {
                   Failed to send. Please try again.
                 </div>
               )}
-              )
             </form>
           </div>
         </div>
