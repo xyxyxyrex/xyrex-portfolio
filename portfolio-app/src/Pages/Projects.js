@@ -17,6 +17,10 @@ export default function Projects() {
         "/assets/projects/nmcg-3.png",
       ],
       github: "https://github.com/username/project1",
+      stack: [
+        { img: "/assets/icons/php.png", name: "PHP" },
+        { img: "/assets/icons/android.png", name: "Android" },
+      ],
     },
     {
       id: 2,
@@ -29,6 +33,7 @@ export default function Projects() {
         "/assets/projects/cet-3.png",
       ],
       github: "https://github.com/username/project2",
+      stack: [{ img: "/assets/icons/php.png", name: "PHP" }],
     },
     {
       id: 3,
@@ -43,6 +48,10 @@ export default function Projects() {
         "/assets/projects/docsync-4.png",
       ],
       github: "https://github.com/username/project3",
+      stack: [
+        { img: "/assets/icons/php.png", name: "PHP" },
+        { img: "/assets/icons/flutter.webp", name: "Flutter" },
+      ],
     },
     {
       id: 4,
@@ -60,6 +69,11 @@ export default function Projects() {
         "/assets/projects/carefind-8.png",
       ],
       github: "https://github.com/username/project4",
+      stack: [
+        { img: "/assets/icons/android.png", name: "Android" },
+        { img: "/assets/icons/php.png", name: "PHP" },
+        { img: "/assets/icons/arduino.png", name: "Arduino" },
+      ],
     },
     {
       id: 5,
@@ -73,6 +87,7 @@ export default function Projects() {
         "/assets/projects/phishing-4.png",
       ],
       github: "https://github.com/username/project5",
+      stack: [{ img: "/assets/icons/python.png", name: "Python" }],
     },
     {
       id: 6,
@@ -91,6 +106,10 @@ export default function Projects() {
         "/assets/projects/thriftly-9.png",
       ],
       github: "https://github.com/username/project6",
+      stack: [
+        { img: "/assets/icons/android.png", name: "Android" },
+        { img: "/assets/icons/php.png", name: "PHP" },
+      ],
     },
   ];
 
@@ -125,8 +144,6 @@ export default function Projects() {
   return (
     <>
       <div className="w-full h-full flex flex-col items-center justify-start md:justify-center px-4 md:px-12 py-4 md:py-6 relative overflow-y-auto">
-        {/* Geometric Elements */}
-        {/* Top Left */}
         <div className="hidden md:flex absolute top-8 left-12 flex-col gap-2 z-20 pointer-events-none">
           <div className="flex gap-2 items-center">
             <div className="w-4 h-4 bg-black"></div>
@@ -137,7 +154,6 @@ export default function Projects() {
           <span className="text-xs text-gray-400 tracking-widest">003</span>
         </div>
 
-        {/* Top Right */}
         <div className="hidden md:flex absolute top-8 right-12 flex-col items-end gap-2 z-20 pointer-events-none">
           <div className="flex gap-1">
             <div className="w-8 h-1 bg-black"></div>
@@ -150,7 +166,6 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* Bottom Left */}
         <div className="hidden md:flex absolute bottom-8 left-12 flex-col gap-2 z-20 pointer-events-none">
           <div className="flex gap-1">
             <div className="w-1 h-8 bg-black"></div>
@@ -163,7 +178,6 @@ export default function Projects() {
           </span>
         </div>
 
-        {/* Bottom Right */}
         <div className="hidden md:flex absolute bottom-8 right-12 flex-col items-end gap-2 z-20 pointer-events-none">
           <div className="grid grid-cols-4 gap-0.5">
             {[...Array(16)].map((_, i) => (
@@ -180,7 +194,6 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* Header */}
         <div className="w-full max-w-7xl mb-4 md:mb-6 mt-2 md:mt-0">
           <h1 className="text-3xl md:text-6xl font-bold mb-1 md:mb-2">
             Code Projects
@@ -190,7 +203,6 @@ export default function Projects() {
           </h2>
         </div>
 
-        {/* Projects Grid - 3 columns, 2 rows */}
         <div
           className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full max-w-7xl pb-4 md:pb-0"
           style={{ gridAutoRows: "1fr" }}
@@ -200,7 +212,6 @@ export default function Projects() {
               key={project.id}
               className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-[240px] md:h-[280px]"
             >
-              {/* Image Banner */}
               <div className="relative h-[180px] flex-shrink-0 overflow-hidden bg-gray-100">
                 <img
                   src={project.images[0]}
@@ -216,10 +227,8 @@ export default function Projects() {
                   }}
                 />
 
-                {/* Overlay on hover */}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                {/* View Images Button - center */}
                 <button
                   onClick={() => openModal(project)}
                   className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-2 px-5 py-2.5 bg-white/90 backdrop-blur-sm text-black rounded-full opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-white shadow-lg"
@@ -228,7 +237,6 @@ export default function Projects() {
                   <span className="text-sm font-semibold">View Images</span>
                 </button>
 
-                {/* GitHub Button - bottom right */}
                 <a
                   href={project.github}
                   target="_blank"
@@ -239,15 +247,28 @@ export default function Projects() {
                   <span className="text-sm font-medium">View in GitHub</span>
                 </a>
 
-                {/* Image count badge */}
                 <div className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1 bg-black/60 backdrop-blur-sm text-white rounded-full text-xs">
                   <i className="fa-solid fa-image"></i>
                   <span>{project.images.length}</span>
                 </div>
               </div>
 
-              {/* Content */}
               <div className="p-4">
+                <div className="flex gap-1.5 mb-2">
+                  {project.stack?.map((tech, index) => (
+                    <div
+                      key={index}
+                      className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-100 shadow-sm overflow-hidden"
+                      title={tech.name}
+                    >
+                      <img
+                        src={tech.img}
+                        alt={tech.name}
+                        className="w-4 h-4 object-contain"
+                      />
+                    </div>
+                  ))}
+                </div>
                 <h3 className="text-lg font-bold mb-1">{project.title}</h3>
                 <p className="text-gray-600 text-sm line-clamp-2">
                   {project.description}
@@ -258,7 +279,6 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* Modal */}
       {modalOpen && activeProject && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm"
@@ -268,7 +288,6 @@ export default function Projects() {
             className="relative bg-white rounded-2xl overflow-hidden max-w-4xl w-full mx-4 max-h-[90vh] flex flex-col shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Header */}
             <div className="flex items-center justify-between p-4 border-b">
               <div>
                 <h3 className="text-xl font-bold">{activeProject.title}</h3>
@@ -284,7 +303,6 @@ export default function Projects() {
               </button>
             </div>
 
-            {/* Main Image */}
             <div className="relative flex-1 bg-gray-100 flex items-center justify-center min-h-[250px] md:min-h-[400px]">
               <img
                 src={activeProject.images[activeImageIndex]}
@@ -297,7 +315,6 @@ export default function Projects() {
                 }}
               />
 
-              {/* Navigation Arrows */}
               {activeProject.images.length > 1 && (
                 <>
                   <button
@@ -316,7 +333,6 @@ export default function Projects() {
               )}
             </div>
 
-            {/* Thumbnail Navigation */}
             <div className="p-4 border-t bg-gray-50">
               <div className="flex gap-3 justify-center overflow-x-auto pb-2">
                 {activeProject.images.map((image, index) => (

@@ -12,7 +12,6 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
-  // EmailJS credentials from environment variables
   const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
   const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
   const EMAILJS_PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
@@ -73,8 +72,6 @@ export default function Contact() {
 
   return (
     <div className="w-full h-full flex flex-col relative overflow-y-auto">
-      {/* Geometric Elements */}
-      {/* Top Left */}
       <div className="hidden md:flex absolute top-8 left-12 flex-col gap-2 z-20 pointer-events-none">
         <div className="flex gap-2 items-center">
           <div className="w-4 h-4 bg-black"></div>
@@ -84,7 +81,6 @@ export default function Contact() {
         <span className="text-xs text-gray-400 tracking-widest">005</span>
       </div>
 
-      {/* Top Right */}
       <div className="hidden md:flex absolute top-8 right-12 flex-col items-end gap-2 z-20 pointer-events-none">
         <div className="flex gap-1">
           <div className="w-2 h-2 rounded-full bg-black"></div>
@@ -94,10 +90,8 @@ export default function Contact() {
         <div className="w-6 h-6 border-2 border-black rotate-45"></div>
       </div>
 
-      {/* Main Content */}
       <div className="flex-1 flex items-center justify-center px-4 md:px-12 py-6 md:py-8">
         <div className="w-full max-w-4xl flex flex-col md:flex-row gap-8 md:gap-16">
-          {/* Left Side - Info */}
           <div className="flex-1 flex flex-col justify-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-2 md:mb-4">
               Let's Talk
@@ -137,7 +131,6 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Right Side - Form */}
           <div className="flex-1">
             <form
               ref={formRef}
@@ -240,7 +233,6 @@ export default function Contact() {
         </div>
       </div>
 
-      {/* Footer - Similar to Home header */}
       <footer className="border-t border-dashed border-black flex-shrink-0">
         <div className="flex flex-wrap md:flex-nowrap w-full py-4 md:py-6 px-4 md:px-8">
           {socialLinks.map((social, index) => (

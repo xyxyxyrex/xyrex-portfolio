@@ -4,9 +4,6 @@ export default function Home() {
   return (
     <div className="relative min-h-screen w-full h-full">
       <SplineModel />
-      {/* Geometric Elements */}
-      {/* Top Right */}
-      {/* Bottom Right */}
       <div className="hidden md:flex absolute bottom-8 right-8 flex-col items-end gap-2 z-20 pointer-events-none">
         <div className="w-8 h-8 border-2 border-black rotate-45"></div>
         <div className="flex gap-1 mt-2">
@@ -19,7 +16,7 @@ export default function Home() {
       <div className="absolute bottom-5 right-4 w-60 h-20 bg-white text-white">
         AAAAAAAAA
       </div>
-      {/* Top Left Corner Accent */}
+
       <div className="hidden md:flex absolute top-32 left-8 flex-col gap-2 z-20 pointer-events-none">
         <div className="w-12 h-px bg-black"></div>
         <div className="w-8 h-px bg-gray-400"></div>
@@ -29,7 +26,7 @@ export default function Home() {
         </div>
         <span className="text-xs text-gray-400 tracking-widest">001</span>
       </div>
-      {/* Header with 3 sections */}
+
       <header className="absolute top-0 left-0 right-0 z-10">
         <div className="flex flex-col md:flex-row w-full border-b border-dashed border-black py-3 md:py-6 px-4 md:px-8">
           <div className="flex-1 border-b md:border-b-0 md:border-r border-dashed border-black pb-2 md:pb-0 md:pr-8 mb-2 md:mb-0">

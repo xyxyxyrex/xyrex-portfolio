@@ -85,7 +85,13 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed bottom-4 left-4 md:bottom-20 md:left-20 m-2 md:m-4 z-50">
+      <nav
+        className={`fixed bottom-4 left-4 md:bottom-20 md:left-20 m-2 md:m-4 z-50 rounded-2xl transition-all duration-500 ease-out ${
+          isScrolled
+            ? "bg-white/20 backdrop-blur-xl border border-white/30 shadow-lg"
+            : ""
+        }`}
+      >
         <ul
           className={`flex flex-col p-2 md:p-4 rounded-lg text-black transition-all duration-500 ease-out ${
             isScrolled ? "space-y-0.5 md:space-y-1" : "space-y-2 md:space-y-7"

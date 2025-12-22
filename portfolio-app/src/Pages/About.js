@@ -1,5 +1,4 @@
 export default function About() {
-  // Tech stack logos - replace placeholder images with your own
   const logosRow1 = [
     {
       name: "React",
@@ -37,6 +36,16 @@ export default function About() {
         <img
           src="/assets/icons/python.png"
           alt="Python"
+          className="w-12 h-12 object-contain"
+        />
+      ),
+    },
+    {
+      name: "Android",
+      icon: (
+        <img
+          src="/assets/icons/android.png"
+          alt="Android"
           className="w-12 h-12 object-contain"
         />
       ),
@@ -141,8 +150,6 @@ export default function About() {
 
   return (
     <div className="w-full md:w-3/4 h-full flex flex-col md:flex-row relative overflow-y-auto md:overflow-visible">
-      {/* Geometric Elements */}
-      {/* Top Right */}
       <div className="hidden md:flex absolute top-8 right-0 flex-col items-end gap-3 z-20 pointer-events-none">
         <div className="flex gap-2 items-center">
           <span className="text-xs text-gray-400 tracking-widest">002</span>
@@ -154,7 +161,6 @@ export default function About() {
         </div>
         <div className="w-6 h-6 rounded-full border border-black"></div>
       </div>
-      {/* Bottom Left */}
       <div className="hidden md:flex absolute bottom-8 left-0 flex-col gap-2 z-20 pointer-events-none">
         <div className="flex gap-2">
           <div className="w-3 h-3 bg-black"></div>
@@ -164,7 +170,6 @@ export default function About() {
         <div className="w-20 h-px bg-gradient-to-r from-black to-transparent"></div>
         <span className="text-xs text-gray-400 tracking-widest">ABOUT</span>
       </div>
-      {/* Bottom Right */}
       <div className="hidden md:flex absolute bottom-8 right-0 flex-col items-end gap-2 z-20 pointer-events-none">
         <div className="grid grid-cols-3 gap-1">
           <div className="w-2 h-2 bg-black"></div>
@@ -180,14 +185,12 @@ export default function About() {
           <div className="w-1 h-3 bg-black"></div>
         </div>
       </div>
-      {/* Left Side - Image */}
-      <div className="w-full md:w-1/2 h-48 md:h-full flex items-center justify-center p-4 md:p-8 flex-shrink-0">
-        <div className="w-40 md:w-80 h-full shadow-2xl bg-gray-200">
-          {/* Replace src with your actual image */}
+      <div className="w-full md:w-1/2 h-1/2 md:rounded-full md:h-full flex items-center justify-center p-4 md:p-8 flex-shrink-0">
+        <div className="w-40 md:w-80 h-full md:rounded-full overflow-hidden shadow-2xl">
           <img
             src="/assets/myImage.png"
             alt="Profile"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover md:rounded-full"
             onError={(e) => {
               e.target.style.display = "none";
               e.target.parentElement.innerHTML =
@@ -196,9 +199,7 @@ export default function About() {
           />
         </div>
       </div>
-      {/* Right Side - Paragraph + Scrolling Logos */}
       <div className="w-full md:w-3/4 flex-1 flex flex-col justify-center p-4 md:p-8">
-        {/* Paragraph */}
         <div className="flex-2 mb-6 md:mb-12">
           <div className="mb-4 md:mb-6">
             <div className="text-left mb-6 md:mb-12">
@@ -225,7 +226,6 @@ export default function About() {
           </p>
         </div>
 
-        {/* Static Logos - 3 Rows */}
         <div className="space-y-4">
           <LogoRow logos={logosRow1} />
           <LogoRow logos={logosRow2} />

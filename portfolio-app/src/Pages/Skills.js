@@ -18,7 +18,7 @@ export default function Skills() {
     "/assets/skills/figma-4.png",
   ];
 
-  // Duplicate images for seamless loop
+
   const duplicatedTop = [
     ...topImages,
     ...topImages,
@@ -69,7 +69,7 @@ export default function Skills() {
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-between overflow-hidden">
-      {/* Top Row - Scrolling Left with bottom fade */}
+
       <div className="w-full flex-1 relative overflow-hidden">
         <div
           ref={topRowRef}
@@ -96,7 +96,7 @@ export default function Skills() {
             </div>
           ))}
         </div>
-        {/* Bottom fade overlay */}
+
         <div
           className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
           style={{
@@ -106,9 +106,9 @@ export default function Skills() {
         />
       </div>
 
-      {/* Middle Row - Heading and Subheading */}
+
       <div className="text-center py-4 md:py-6 z-10 flex-shrink-0 relative w-full">
-        {/* Geometric Elements - Left */}
+
         <div className="hidden md:flex absolute left-12 top-1/2 -translate-y-1/2 items-center gap-4 pointer-events-none">
           <div className="flex flex-col gap-2">
             <div className="flex gap-1">
@@ -125,7 +125,7 @@ export default function Skills() {
           </div>
         </div>
 
-        {/* Geometric Elements - Right */}
+
         <div className="hidden md:flex absolute right-12 top-1/2 -translate-y-1/2 items-center gap-4 pointer-events-none">
           <div className="flex flex-col gap-1">
             <div className="w-1 h-6 bg-gray-400"></div>
@@ -152,9 +152,8 @@ export default function Skills() {
         </h2>
       </div>
 
-      {/* Bottom Row - Scrolling Right with top fade */}
+
       <div className="w-full flex-1 relative overflow-hidden">
-        {/* Top fade overlay */}
         <div
           className="absolute top-0 left-0 right-0 h-32 pointer-events-none z-10"
           style={{
