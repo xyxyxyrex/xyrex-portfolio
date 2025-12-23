@@ -195,7 +195,7 @@ export default function Projects() {
         </div>
 
         <div className="w-full max-w-7xl mb-4 md:mb-6 mt-2 md:mt-0">
-          <h1 className="text-3xl md:text-6xl font-bold mb-1 md:mb-2">
+          <h1 className="text-3xl md:text-6xl font-bold mb-1 mt-0 md:mb-2">
             Code Projects
           </h1>
           <h2 className="text-sm md:text-lg text-gray-600">
@@ -203,16 +203,14 @@ export default function Projects() {
           </h2>
         </div>
 
-        <div
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full max-w-7xl pb-4 md:pb-0"
-          style={{ gridAutoRows: "1fr" }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full max-w-7xl pb-4 md:pb-0">
+          {/* card container */}
           {projects.map((project) => (
             <div
               key={project.id}
-              className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-[240px] md:h-[280px]"
+              className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col"
             >
-              <div className="relative h-[180px] flex-shrink-0 overflow-hidden bg-gray-100">
+              <div className="relative h-[180px] md:h-[160px] flex-shrink-0 overflow-hidden bg-gray-100">
                 <img
                   src={project.images[0]}
                   alt={project.title}
@@ -253,7 +251,7 @@ export default function Projects() {
                 </div>
               </div>
 
-              <div className="p-4">
+              <div className="p-4 flex-1 flex flex-col">
                 <div className="flex gap-1.5 mb-2">
                   {project.stack?.map((tech, index) => (
                     <div
@@ -269,8 +267,8 @@ export default function Projects() {
                     </div>
                   ))}
                 </div>
-                <h3 className="text-lg font-bold mb-1">{project.title}</h3>
-                <p className="text-gray-600 text-sm line-clamp-2">
+                <h3 className="text-base font-bold mb-1">{project.title}</h3>
+                <p className="text-gray-600 text-sm line-clamp-3 group-hover:line-clamp-none transition-all">
                   {project.description}
                 </p>
               </div>

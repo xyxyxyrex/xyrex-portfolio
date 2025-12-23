@@ -29,10 +29,18 @@ export default function Home() {
 
       <header className="absolute top-0 left-0 right-0 z-10">
         <div className="flex flex-col md:flex-row w-full border-b border-dashed border-black py-3 md:py-6 px-4 md:px-8">
-          <div className="flex-1 border-b md:border-b-0 md:border-r border-dashed border-black pb-2 md:pb-0 md:pr-8 mb-2 md:mb-0">
+          <div className="flex-1 border-b md:border-b-0 md:border-r border-dashed border-black pb-2 md:pb-0 md:pr-8 mb-2 md:mb-0 flex items-center justify-between">
             <span className="text-3xl md:text-6xl text-black font-bold">
               XY
             </span>
+            <a
+              href="/assets/files/resume.pdf"
+              download
+              className="md:hidden flex items-center gap-2 text-sm text-black hover:scale-105 transition-transform"
+            >
+              <i className="fa-solid fa-download"></i>
+              <span>Resume</span>
+            </a>
           </div>
           <div className="hidden md:block flex-1 border-r border-dashed border-black px-8">
             <span className="text-lg text-black font-semibold block">Role</span>
@@ -44,9 +52,14 @@ export default function Home() {
             <span className="text-lg text-black font-semibold block">
               Based in Bacolod, PH
             </span>
-            <span className="text-base text-black block">
-              Web Developer + Multimedia Artist
-            </span>
+            <a
+              href="/assets/files/resume.pdf"
+              download
+              className="inline-flex items-center justify-end gap-1.5 text-base text-black hover:scale-105 transition-transform w-full"
+            >
+              <i className="fa-solid fa-download text-sm"></i>
+              <span>Download Resume</span>
+            </a>
           </div>
         </div>
       </header>
