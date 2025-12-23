@@ -19,21 +19,43 @@ export default function App() {
   return (
     <div
       data-scroll-container
+      className="scroll-container"
       style={{
-        scrollSnapType: "y mandatory",
         overflowY: "scroll",
         height: "100vh",
         scrollBehavior: "smooth",
       }}
     >
+      <style>{`
+        .scroll-container {
+          scroll-snap-type: none;
+        }
+        @media (min-width: 768px) {
+          .scroll-container {
+            scroll-snap-type: y mandatory;
+          }
+        }
+        .section-wrapper {
+          min-height: 100vh;
+          min-height: 100dvh;
+          scroll-snap-align: none;
+        }
+        @media (min-width: 768px) {
+          .section-wrapper {
+            height: 100vh;
+            min-height: 100vh;
+            scroll-snap-align: start;
+          }
+        }
+      `}</style>
       <Navbar />
       <AnimatePresence mode="wait">
         {sections.map((section, index) => (
           <SectionWrapper key={index} className="section-container">
             <div
               id={section.id}
+              className="section-wrapper"
               style={{
-                height: "100vh",
                 scrollSnapAlign: "start",
                 display: "flex",
                 alignItems: "center",

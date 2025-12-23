@@ -4,7 +4,7 @@ import { FadeUp, Float, ScaleIn } from "../Components/PageTransition";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen w-full h-full">
+    <div className="relative min-h-[100dvh] md:min-h-screen w-full h-full">
       <SplineModel />
 
       {/* Decorative elements with float animation */}
@@ -156,7 +156,7 @@ export default function Home() {
         </div>
       </motion.header>
 
-      <div className="relative p-4 md:p-8 text-white text-center flex flex-col items-center justify-center h-full">
+      <div className="relative p-4 md:p-8 text-white text-center flex flex-col items-center justify-center h-full pt-32 md:pt-0">
         <ScaleIn delay={0.2}>
           <motion.div
             className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-6 md:p-12 shadow-2xl mx-4"

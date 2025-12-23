@@ -142,7 +142,7 @@ export default function About() {
     return (
       <StaggerContainer
         staggerDelay={0.08}
-        className="flex flex-wrap gap-8 justify-center w-full"
+        className="flex flex-wrap gap-3 md:gap-8 justify-center w-full"
       >
         {logos.map((logo, index) => (
           <StaggerItem key={index}>
@@ -152,10 +152,10 @@ export default function About() {
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              <div className="w-20 h-20 flex items-center justify-center">
+              <div className="w-10 h-10 md:w-20 md:h-20 flex items-center justify-center">
                 {logo.icon}
               </div>
-              <span className="text-sm text-black mt-2 whitespace-nowrap">
+              <span className="text-xs md:text-sm text-black mt-1 md:mt-2 whitespace-nowrap">
                 {logo.name}
               </span>
             </motion.div>
@@ -166,7 +166,7 @@ export default function About() {
   };
 
   return (
-    <div className="w-full md:w-3/4 h-full flex flex-col md:flex-row relative overflow-y-auto md:overflow-visible">
+    <div className="w-full md:w-3/4 min-h-[100dvh] md:min-h-0 md:h-full flex flex-col md:flex-row relative py-4 md:py-0">
       {/* Decorative elements with animations */}
       <Float
         delay={0.2}
@@ -271,16 +271,16 @@ export default function About() {
       <SlideIn
         direction="left"
         delay={0.1}
-        className="w-full md:w-1/2 h-1/2 md:rounded-full md:h-full flex items-center justify-center p-4 md:p-8 flex-shrink-0"
+        className="w-full md:w-1/2 h-auto md:rounded-full md:h-full flex items-center justify-center p-4 md:p-8 flex-shrink-0"
       >
         <ImageReveal
           delay={0.2}
-          className="w-40 md:w-80 h-full md:rounded-full overflow-hidden shadow-2xl"
+          className="w-96 h-96 md:w-80 md:h-full rounded-full md:rounded-full overflow-hidden shadow-2xl"
         >
           <motion.img
             src="/assets/myImage.png"
             alt="Profile"
-            className="w-full h-full object-cover md:rounded-full"
+            className="w-full h-full object-cover rounded-full md:rounded-full object-[center_15%]"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.4 }}
             onError={(e) => {
@@ -298,17 +298,17 @@ export default function About() {
         delay={0.2}
         className="w-full md:w-3/4 flex-1 flex flex-col justify-center p-4 md:p-8"
       >
-        <div className="flex-2 mb-6 md:mb-12">
-          <div className="mb-4 md:mb-6">
-            <div className="text-left mb-6 md:mb-12">
+        <div className="mb-4 md:mb-12">
+          <div className="mb-2 md:mb-6">
+            <div className="text-left mb-4 md:mb-12">
               <FadeUp delay={0.3}>
-                <h1 className="text-4xl md:text-8xl font-bold mb-3 md:mb-6">
+                <h1 className="text-2xl md:text-8xl font-bold mb-2 md:mb-6">
                   A Developer—
                 </h1>
               </FadeUp>
               <div className="flex items-center justify-between">
                 <FadeUp delay={0.4}>
-                  <h1 className="text-4xl md:text-8xl font-bold">
+                  <h1 className="text-2xl md:text-8xl font-bold">
                     and an Editor
                   </h1>
                 </FadeUp>
@@ -325,7 +325,7 @@ export default function About() {
           </div>
 
           <FadeUp delay={0.5}>
-            <p className="text-sm md:text-lg text-gray-700 leading-relaxed">
+            <p className="text-xs md:text-lg text-gray-700 leading-relaxed">
               Hello! I started web development back in 2021, driven by my
               background in multimedia arts. Over the years, I've honed my
               skills in both front-end and back-end technologies, as well as
@@ -335,7 +335,7 @@ export default function About() {
           </FadeUp>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-2 md:space-y-4">
           <LogoRow logos={logosRow1} staggerDelay={0} />
           <LogoRow logos={logosRow2} staggerDelay={0.1} />
           <LogoRow logos={logosRow3} staggerDelay={0.2} />

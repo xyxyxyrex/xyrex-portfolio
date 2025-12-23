@@ -79,7 +79,7 @@ export default function Contact() {
   ];
 
   return (
-    <div className="w-full h-full flex flex-col relative overflow-y-auto">
+    <div className="w-full min-h-[100dvh] md:h-full flex flex-col relative py-4 md:py-0">
       {/* Decorative elements with animations */}
       <Float
         delay={0}

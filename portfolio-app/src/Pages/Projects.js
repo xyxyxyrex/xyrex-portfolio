@@ -150,7 +150,7 @@ export default function Projects() {
 
   return (
     <>
-      <div className="w-full h-full flex flex-col items-center justify-start md:justify-center px-4 md:px-12 py-4 md:py-6 relative overflow-y-auto">
+      <div className="w-full min-h-[100dvh] md:h-full flex flex-col items-center justify-start md:justify-center px-4 md:px-12 py-8 md:py-6 relative">
         {/* Decorative elements with animations */}
         <Float
           delay={0}

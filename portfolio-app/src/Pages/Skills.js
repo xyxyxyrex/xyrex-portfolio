@@ -73,7 +73,7 @@ export default function Skills() {
   return (
     <div
       ref={sectionRef}
-      className="w-full h-full flex flex-col items-center justify-between overflow-hidden"
+      className="w-full min-h-[100dvh] md:h-full flex flex-col items-center justify-between overflow-hidden py-8 md:py-0"
     >
       <motion.div
         initial={{ opacity: 0, y: -50, filter: "blur(10px)" }}
