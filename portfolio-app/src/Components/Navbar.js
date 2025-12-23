@@ -1,17 +1,23 @@
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredLink, setHoveredLink] = useState(null);
   const [letterEffects, setLetterEffects] = useState({});
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const scrollContainer = document.querySelector("[data-scroll-container]");
 
     const handleScroll = () => {
       if (scrollContainer) {
+        const currentScrollY = scrollContainer.scrollTop;
         // Check if scrolled past the home section (first viewport height)
-        setIsScrolled(scrollContainer.scrollTop > window.innerHeight * 0.5);
+        setIsScrolled(currentScrollY > window.innerHeight * 0.5);
+        // Always keep navbar visible
+        setIsVisible(true);
       }
     };
 
@@ -85,7 +91,14 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
+      <motion.nav
+        initial={{ opacity: 0, x: -50, filter: "blur(10px)" }}
+        animate={{
+          opacity: isVisible ? 1 : 0,
+          x: isVisible ? 0 : -50,
+          filter: isVisible ? "blur(0px)" : "blur(10px)",
+        }}
+        transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
         className={`fixed bottom-4 left-4 md:bottom-20 md:left-20 m-2 md:m-4 z-50 rounded-2xl transition-all duration-500 ease-out ${
           isScrolled
             ? "bg-white/20 backdrop-blur-xl border border-white/30 shadow-lg"
@@ -97,9 +110,19 @@ export default function Navbar() {
             isScrolled ? "space-y-0.5 md:space-y-1" : "space-y-2 md:space-y-7"
           }`}
         >
-          {navLinks.map((link) => (
-            <li key={link.id} className="relative">
-              <a
+          {navLinks.map((link, index) => (
+            <motion.li
+              key={link.id}
+              className="relative"
+              initial={{ opacity: 0, x: -30, filter: "blur(5px)" }}
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+              transition={{
+                delay: 0.1 + index * 0.08,
+                duration: 0.5,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+            >
+              <motion.a
                 className={`nav-link font-bold transition-all duration-300 ease-out inline-block origin-left relative z-10 ${
                   isScrolled
                     ? "text-base md:text-2xl scale-75"
@@ -110,28 +133,36 @@ export default function Navbar() {
                 onMouseEnter={() => setHoveredLink(link.id)}
                 onMouseMove={(e) => handleMouseMove(e, link.id, link.label)}
                 onMouseLeave={() => handleMouseLeave(link.id)}
+                whileHover={{ x: 5 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <span className="nav-link-text">
-                  {link.label.split("").map((letter, index) => (
-                    <span
-                      key={index}
+                  {link.label.split("").map((letter, letterIndex) => (
+                    <motion.span
+                      key={letterIndex}
                       className="nav-letter"
                       style={getLetterStyle(
                         link.id,
-                        index,
-                        letterEffects[`${link.id}-${index}`] || 0
+                        letterIndex,
+                        letterEffects[`${link.id}-${letterIndex}`] || 0
                       )}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        delay: 0.15 + index * 0.08 + letterIndex * 0.02,
+                        duration: 0.3,
+                      }}
                     >
                       {letter}
-                    </span>
+                    </motion.span>
                   ))}
                 </span>
                 <span className="nav-link-bg"></span>
-              </a>
-            </li>
+              </motion.a>
+            </motion.li>
           ))}
         </ul>
-      </nav>
+      </motion.nav>
 
       <style>{`
         .nav-link {
