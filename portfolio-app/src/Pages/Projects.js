@@ -400,111 +400,111 @@ export default function Projects() {
                 animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
                 exit={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
                 transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative bg-white rounded-2xl overflow-hidden max-w-4xl w-full max-h-[80vh] md:max-h-[90vh] flex flex-col shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <motion.div
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.1, duration: 0.3 }}
-                className="flex items-center justify-between p-4 border-b"
+                className="relative bg-white rounded-2xl overflow-hidden max-w-4xl w-full max-h-[80vh] md:max-h-[90vh] flex flex-col shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
               >
-                <div>
-                  <h3 className="text-xl font-bold">{activeProject.title}</h3>
-                  <p className="text-sm text-gray-500">
-                    {activeImageIndex + 1} of {activeProject.images.length}{" "}
-                    images
-                  </p>
-                </div>
-                <motion.button
-                  onClick={closeModal}
-                  whileHover={{ scale: 1.1, rotate: 90 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+                <motion.div
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.1, duration: 0.3 }}
+                  className="flex items-center justify-between p-4 border-b"
                 >
-                  <i className="fa-solid fa-xmark text-xl"></i>
-                </motion.button>
-              </motion.div>
+                  <div>
+                    <h3 className="text-xl font-bold">{activeProject.title}</h3>
+                    <p className="text-sm text-gray-500">
+                      {activeImageIndex + 1} of {activeProject.images.length}{" "}
+                      images
+                    </p>
+                  </div>
+                  <motion.button
+                    onClick={closeModal}
+                    whileHover={{ scale: 1.1, rotate: 90 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+                  >
+                    <i className="fa-solid fa-xmark text-xl"></i>
+                  </motion.button>
+                </motion.div>
 
-              <div className="relative flex-1 bg-gray-100 flex items-center justify-center min-h-[250px] md:min-h-[400px]">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={activeImageIndex}
-                    src={activeProject.images[activeImageIndex]}
-                    alt={`${activeProject.title} - Image ${
-                      activeImageIndex + 1
-                    }`}
-                    initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
-                    transition={{ duration: 0.4 }}
-                    className="max-w-full max-h-[250px] md:max-h-[400px] object-contain"
-                    onError={(e) => {
-                      e.target.src = "";
-                      e.target.alt = "Image not found";
-                      e.target.className = "hidden";
-                    }}
-                  />
-                </AnimatePresence>
-
-                {activeProject.images.length > 1 && (
-                  <>
-                    <motion.button
-                      onClick={prevImage}
-                      whileHover={{ scale: 1.1, x: -2 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-lg transition-all"
-                    >
-                      <i className="fa-solid fa-chevron-left text-lg"></i>
-                    </motion.button>
-                    <motion.button
-                      onClick={nextImage}
-                      whileHover={{ scale: 1.1, x: 2 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-lg transition-all"
-                    >
-                      <i className="fa-solid fa-chevron-right text-lg"></i>
-                    </motion.button>
-                  </>
-                )}
-              </div>
-
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.3 }}
-                className="p-4 border-t bg-gray-50"
-              >
-                <div className="flex gap-3 justify-center overflow-x-auto pb-2">
-                  {activeProject.images.map((image, index) => (
-                    <motion.button
-                      key={index}
-                      onClick={() => setActiveImageIndex(index)}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className={`relative flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden transition-all duration-200 ${
-                        index === activeImageIndex
-                          ? "ring-2 ring-black ring-offset-2 scale-105"
-                          : "opacity-60 hover:opacity-100"
+                <div className="relative flex-1 bg-gray-100 flex items-center justify-center min-h-[250px] md:min-h-[400px]">
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={activeImageIndex}
+                      src={activeProject.images[activeImageIndex]}
+                      alt={`${activeProject.title} - Image ${
+                        activeImageIndex + 1
                       }`}
-                    >
-                      <img
-                        src={image}
-                        alt={`Thumbnail ${index + 1}`}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.target.parentElement.classList.add("bg-gray-300");
-                          e.target.style.display = "none";
-                        }}
-                      />
-                    </motion.button>
-                  ))}
+                      initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
+                      transition={{ duration: 0.4 }}
+                      className="max-w-full max-h-[250px] md:max-h-[400px] object-contain"
+                      onError={(e) => {
+                        e.target.src = "";
+                        e.target.alt = "Image not found";
+                        e.target.className = "hidden";
+                      }}
+                    />
+                  </AnimatePresence>
+
+                  {activeProject.images.length > 1 && (
+                    <>
+                      <motion.button
+                        onClick={prevImage}
+                        whileHover={{ scale: 1.1, x: -2 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-lg transition-all"
+                      >
+                        <i className="fa-solid fa-chevron-left text-lg"></i>
+                      </motion.button>
+                      <motion.button
+                        onClick={nextImage}
+                        whileHover={{ scale: 1.1, x: 2 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-lg transition-all"
+                      >
+                        <i className="fa-solid fa-chevron-right text-lg"></i>
+                      </motion.button>
+                    </>
+                  )}
                 </div>
+
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2, duration: 0.3 }}
+                  className="p-4 border-t bg-gray-50"
+                >
+                  <div className="flex gap-3 justify-center overflow-x-auto pb-2">
+                    {activeProject.images.map((image, index) => (
+                      <motion.button
+                        key={index}
+                        onClick={() => setActiveImageIndex(index)}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`relative flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden transition-all duration-200 ${
+                          index === activeImageIndex
+                            ? "ring-2 ring-black ring-offset-2 scale-105"
+                            : "opacity-60 hover:opacity-100"
+                        }`}
+                      >
+                        <img
+                          src={image}
+                          alt={`Thumbnail ${index + 1}`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.target.parentElement.classList.add("bg-gray-300");
+                            e.target.style.display = "none";
+                          }}
+                        />
+                      </motion.button>
+                    ))}
+                  </div>
+                </motion.div>
               </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>,
+          )}
+        </AnimatePresence>,
         document.body
       )}
     </>

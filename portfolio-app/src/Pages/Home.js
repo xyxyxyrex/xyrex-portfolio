@@ -44,7 +44,7 @@ export default function Home() {
           transition={{ duration: 0.5, delay: 1 }}
           className="text-xs text-gray-400 tracking-widest"
         >
-          2024
+          2026
         </motion.span>
       </Float>
 
