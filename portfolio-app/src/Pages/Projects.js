@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FadeUp,
@@ -383,22 +384,23 @@ export default function Projects() {
         </StaggerContainer>
       </div>
 
-      <AnimatePresence>
-        {modalOpen && activeProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm"
-            onClick={closeModal}
-          >
+      {createPortal(
+        <AnimatePresence>
+          {modalOpen && activeProject && (
             <motion.div
-              initial={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
-              animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
-              exit={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
-              transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative bg-white rounded-2xl overflow-hidden max-w-4xl w-full mx-4 max-h-[90vh] flex flex-col shadow-2xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+              onClick={closeModal}
+            >
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
+                animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+                exit={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
+                transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="relative bg-white rounded-2xl overflow-hidden max-w-4xl w-full max-h-[80vh] md:max-h-[90vh] flex flex-col shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <motion.div
@@ -502,7 +504,9 @@ export default function Projects() {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+        document.body
+      )}
     </>
   );
 }
