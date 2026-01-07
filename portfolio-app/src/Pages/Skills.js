@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FadeUp, Float } from "../Components/PageTransition";
 
 export default function Skills() {
@@ -8,13 +8,163 @@ export default function Skills() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
 
+  // Modal state
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [parallax, setParallax] = useState({ x: 0, y: 0 });
+
+  // Drag state for scrolling
+  const [isDraggingTop, setIsDraggingTop] = useState(false);
+  const [isDraggingBottom, setIsDraggingBottom] = useState(false);
+  const dragStartX = useRef(0);
+  const scrollStartPos = useRef(0);
+  const topPositionRef = useRef(0);
+  const bottomPositionRef = useRef(0);
+  const topScrollWidthRef = useRef(0);
+  const bottomScrollWidthRef = useRef(0);
+  const animationPausedTop = useRef(false);
+  const animationPausedBottom = useRef(false);
+
+  // Handle parallax effect in modal
+  const handleMouseMove = useCallback(
+    (e) => {
+      if (!selectedImage) return;
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+      const x = (clientX - innerWidth / 2) / 20;
+      const y = (clientY - innerHeight / 2) / 20;
+      setParallax({ x, y });
+    },
+    [selectedImage]
+  );
+
+  // Track if it was a drag or a click
+  const hasDragged = useRef(false);
+
+  // Drag handlers for top row
+  const handleTopMouseDown = (e) => {
+    setIsDraggingTop(true);
+    hasDragged.current = false;
+    animationPausedTop.current = true;
+    dragStartX.current = e.clientX;
+    scrollStartPos.current = topPositionRef.current;
+    e.preventDefault();
+  };
+
+  const handleTopMouseMove = (e) => {
+    if (!isDraggingTop) return;
+    const diff = e.clientX - dragStartX.current;
+    if (Math.abs(diff) > 5) hasDragged.current = true;
+    topPositionRef.current = scrollStartPos.current + diff;
+
+    // Wrap around for infinite scroll
+    const scrollWidth = topScrollWidthRef.current;
+    if (scrollWidth > 0) {
+      if (topPositionRef.current > 0) {
+        topPositionRef.current =
+          -scrollWidth + (topPositionRef.current % scrollWidth);
+        scrollStartPos.current = topPositionRef.current - diff;
+      } else if (Math.abs(topPositionRef.current) >= scrollWidth) {
+        topPositionRef.current = topPositionRef.current % scrollWidth;
+        scrollStartPos.current = topPositionRef.current - diff;
+      }
+    }
+
+    if (topRowRef.current) {
+      topRowRef.current.style.transform = `translateX(${topPositionRef.current}px)`;
+    }
+  };
+
+  const handleTopMouseUp = () => {
+    if (isDraggingTop) {
+      setIsDraggingTop(false);
+      setTimeout(() => {
+        animationPausedTop.current = false;
+      }, 1000);
+    }
+  };
+
+  // Drag handlers for bottom row
+  const handleBottomMouseDown = (e) => {
+    setIsDraggingBottom(true);
+    hasDragged.current = false;
+    animationPausedBottom.current = true;
+    dragStartX.current = e.clientX;
+    scrollStartPos.current = bottomPositionRef.current;
+    e.preventDefault();
+  };
+
+  const handleBottomMouseMove = (e) => {
+    if (!isDraggingBottom) return;
+    const diff = e.clientX - dragStartX.current;
+    if (Math.abs(diff) > 5) hasDragged.current = true;
+    bottomPositionRef.current = scrollStartPos.current + diff;
+
+    // Wrap around for infinite scroll
+    const scrollWidth = bottomScrollWidthRef.current;
+    if (scrollWidth > 0) {
+      if (bottomPositionRef.current > 0) {
+        bottomPositionRef.current =
+          -scrollWidth + (bottomPositionRef.current % scrollWidth);
+        scrollStartPos.current = bottomPositionRef.current - diff;
+      } else if (Math.abs(bottomPositionRef.current) >= scrollWidth) {
+        bottomPositionRef.current = -(
+          Math.abs(bottomPositionRef.current) % scrollWidth
+        );
+        scrollStartPos.current = bottomPositionRef.current - diff;
+      }
+    }
+
+    if (bottomRowRef.current) {
+      bottomRowRef.current.style.transform = `translateX(${bottomPositionRef.current}px)`;
+    }
+  };
+
+  const handleBottomMouseUp = () => {
+    if (isDraggingBottom) {
+      setIsDraggingBottom(false);
+      setTimeout(() => {
+        animationPausedBottom.current = false;
+      }, 1000);
+    }
+  };
+
+  // Global mouse up handler
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      handleTopMouseUp();
+      handleBottomMouseUp();
+    };
+    window.addEventListener("mouseup", handleGlobalMouseUp);
+    return () => window.removeEventListener("mouseup", handleGlobalMouseUp);
+  }, [isDraggingTop, isDraggingBottom]);
+
+  const verticalImages = [
+    "/assets/skills/Bauhaus.png",
+    "/assets/skills/Poster1.png",
+    "/assets/skills/Poster4.png",
+    "/assets/skills/Poster5.png",
+    "/assets/skills/Poster2.png",
+    "/assets/skills/Poster3.png",
+    "/assets/skills/Cybercore.png",
+    "/assets/skills/Porter.png",
+  ];
+
+  const isVertical = (img) => verticalImages.includes(img);
+
   const topImages = [
+    "/assets/skills/Bauhaus.png",
+    "/assets/skills/Poster1.png",
+    "/assets/skills/Poster4.png",
+    "/assets/skills/Poster5.png",
+    "/assets/skills/Poster2.png",
+    "/assets/skills/Poster3.png",
+    "/assets/skills/Cybercore.png",
+    "/assets/skills/Porter.png",
     "/assets/skills/compositing-1.png",
     "/assets/skills/compositing-2.png",
     "/assets/skills/compositing-3.png",
     "/assets/skills/compositing-4.png",
   ];
-
   const bottomImages = [
     "/assets/skills/figma-1.png",
     "/assets/skills/figma-2.png",
@@ -41,14 +191,16 @@ export default function Skills() {
 
     if (topRow) {
       const scrollWidth = topRow.scrollWidth / 4;
-      let topPosition = 0;
+      topScrollWidthRef.current = scrollWidth;
 
       const animateTop = () => {
-        topPosition -= 0.5;
-        if (Math.abs(topPosition) >= scrollWidth) {
-          topPosition = 0;
+        if (!animationPausedTop.current) {
+          topPositionRef.current -= 0.2;
+          if (Math.abs(topPositionRef.current) >= scrollWidth) {
+            topPositionRef.current = 0;
+          }
+          topRow.style.transform = `translateX(${topPositionRef.current}px)`;
         }
-        topRow.style.transform = `translateX(${topPosition}px)`;
         requestAnimationFrame(animateTop);
       };
       requestAnimationFrame(animateTop);
@@ -56,14 +208,17 @@ export default function Skills() {
 
     if (bottomRow) {
       const scrollWidth = bottomRow.scrollWidth / 4;
-      let bottomPosition = -scrollWidth;
+      bottomScrollWidthRef.current = scrollWidth;
+      bottomPositionRef.current = -scrollWidth;
 
       const animateBottom = () => {
-        bottomPosition += 0.5;
-        if (bottomPosition >= 0) {
-          bottomPosition = -scrollWidth;
+        if (!animationPausedBottom.current) {
+          bottomPositionRef.current += 0.2;
+          if (bottomPositionRef.current >= 0) {
+            bottomPositionRef.current = -scrollWidth;
+          }
+          bottomRow.style.transform = `translateX(${bottomPositionRef.current}px)`;
         }
-        bottomRow.style.transform = `translateX(${bottomPosition}px)`;
         requestAnimationFrame(animateBottom);
       };
       requestAnimationFrame(animateBottom);
@@ -87,7 +242,12 @@ export default function Skills() {
       >
         <div
           ref={topRowRef}
-          className="flex gap-6 absolute left-0 top-0 h-full items-center py-4"
+          className={`flex gap-6 absolute left-0 top-0 h-full items-center py-4 ${
+            isDraggingTop ? "cursor-grabbing" : "cursor-grab"
+          }`}
+          onMouseDown={handleTopMouseDown}
+          onMouseMove={handleTopMouseMove}
+          onMouseLeave={handleTopMouseUp}
         >
           {duplicatedTop.map((img, index) => (
             <motion.div
@@ -106,11 +266,18 @@ export default function Skills() {
                 damping: 15,
               }}
               whileHover={{ scale: 1.05, zIndex: 10 }}
-              className="relative flex-shrink-0 w-[200px] md:w-[420px] h-[90%] rounded-xl md:rounded-2xl overflow-hidden shadow-lg md:shadow-xl"
+              onClick={() => !hasDragged.current && setSelectedImage(img)}
+              className={`relative flex-shrink-0 rounded-xl md:rounded-2xl overflow-hidden shadow-lg md:shadow-xl cursor-pointer ${
+                isVertical(img)
+                  ? "w-[140px] md:w-[280px] h-[90%]"
+                  : "w-[200px] md:w-[420px] h-[90%]"
+              }`}
             >
               <img
                 src={img}
                 alt={`Skill ${index + 1}`}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.target.style.display = "none";
@@ -299,7 +466,12 @@ export default function Skills() {
         />
         <div
           ref={bottomRowRef}
-          className="flex gap-6 absolute left-0 top-0 h-full items-center py-4"
+          className={`flex gap-6 absolute left-0 top-0 h-full items-center py-4 ${
+            isDraggingBottom ? "cursor-grabbing" : "cursor-grab"
+          }`}
+          onMouseDown={handleBottomMouseDown}
+          onMouseMove={handleBottomMouseMove}
+          onMouseLeave={handleBottomMouseUp}
         >
           {duplicatedBottom.map((img, index) => (
             <motion.div
@@ -318,11 +490,18 @@ export default function Skills() {
                 damping: 15,
               }}
               whileHover={{ scale: 1.05, zIndex: 10 }}
-              className="relative flex-shrink-0 w-[200px] md:w-[420px] h-[90%] rounded-xl md:rounded-2xl overflow-hidden shadow-lg md:shadow-xl"
+              onClick={() => !hasDragged.current && setSelectedImage(img)}
+              className={`relative flex-shrink-0 rounded-xl md:rounded-2xl overflow-hidden shadow-lg md:shadow-xl cursor-pointer ${
+                isVertical(img)
+                  ? "w-[140px] md:w-[280px] h-[90%]"
+                  : "w-[200px] md:w-[420px] h-[90%]"
+              }`}
             >
               <img
                 src={img}
                 alt={`Skill ${index + 1}`}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.target.style.display = "none";
@@ -337,6 +516,73 @@ export default function Skills() {
           ))}
         </div>
       </motion.div>
+
+      {/* Image Modal with Parallax Effect */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 flex items-center justify-center"
+            onMouseMove={handleMouseMove}
+            onClick={() => setSelectedImage(null)}
+          >
+            {/* Close Button */}
+            <motion.button
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              transition={{ delay: 0.1 }}
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-8 right-8 z-50 w-12 h-12 flex items-center justify-center text-white bg-black/50 rounded-full hover:bg-black/70 transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </motion.button>
+
+            {/* Image with Parallax Effect */}
+            <motion.img
+              src={selectedImage}
+              alt="Selected skill"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                x: parallax.x,
+                y: parallax.y,
+              }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{
+                opacity: { duration: 0.3 },
+                scale: { duration: 0.3 },
+                x: { type: "spring", stiffness: 100, damping: 20 },
+                y: { type: "spring", stiffness: 100, damping: 20 },
+              }}
+              onClick={(e) => e.stopPropagation()}
+              className={`max-w-[90vw] max-h-[90vh] rounded-2xl shadow-2xl ${
+                isVertical(selectedImage) ? "object-contain" : "object-cover"
+              }`}
+              style={{
+                filter: "drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))",
+              }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
