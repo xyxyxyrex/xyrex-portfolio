@@ -1,13 +1,7 @@
 import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import {
-  FadeUp,
-  SlideIn,
-  Float,
-  StaggerContainer,
-  StaggerItem,
-} from "../Components/PageTransition";
+import { FadeUp, SlideIn, Float } from "../Components/PageTransition";
 
 export default function Contact() {
   const formRef = useRef();
@@ -41,7 +35,7 @@ export default function Contact() {
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         formRef.current,
-        EMAILJS_PUBLIC_KEY
+        EMAILJS_PUBLIC_KEY,
       );
 
       setSubmitStatus("success");

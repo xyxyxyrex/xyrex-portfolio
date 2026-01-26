@@ -1,12 +1,11 @@
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredLink, setHoveredLink] = useState(null);
   const [letterEffects, setLetterEffects] = useState({});
   const [isVisible, setIsVisible] = useState(true);
-  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const scrollContainer = document.querySelector("[data-scroll-container]");
@@ -46,7 +45,7 @@ export default function Navbar() {
       const letterCenterY = rect.top + rect.height / 2;
       const distance = Math.sqrt(
         Math.pow(e.clientX - letterCenterX, 2) +
-          Math.pow(e.clientY - letterCenterY, 2)
+          Math.pow(e.clientY - letterCenterY, 2),
       );
 
       // Max effect radius
@@ -144,7 +143,7 @@ export default function Navbar() {
                       style={getLetterStyle(
                         link.id,
                         letterIndex,
-                        letterEffects[`${link.id}-${letterIndex}`] || 0
+                        letterEffects[`${link.id}-${letterIndex}`] || 0,
                       )}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}

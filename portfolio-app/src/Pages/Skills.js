@@ -34,7 +34,7 @@ export default function Skills() {
       const y = (clientY - innerHeight / 2) / 20;
       setParallax({ x, y });
     },
-    [selectedImage]
+    [selectedImage],
   );
 
   // Track if it was a drag or a click
@@ -136,6 +136,7 @@ export default function Skills() {
     };
     window.addEventListener("mouseup", handleGlobalMouseUp);
     return () => window.removeEventListener("mouseup", handleGlobalMouseUp);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDraggingTop, isDraggingBottom]);
 
   const verticalImages = [
@@ -284,7 +285,7 @@ export default function Skills() {
                   e.target.parentElement.classList.add(
                     "bg-gradient-to-br",
                     "from-blue-400",
-                    "to-purple-500"
+                    "to-purple-500",
                   );
                 }}
               />
@@ -508,7 +509,7 @@ export default function Skills() {
                   e.target.parentElement.classList.add(
                     "bg-gradient-to-br",
                     "from-green-400",
-                    "to-cyan-500"
+                    "to-cyan-500",
                   );
                 }}
               />
