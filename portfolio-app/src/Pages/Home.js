@@ -109,7 +109,7 @@ export default function Home() {
               XY
             </motion.span>
             <motion.a
-              href="/assets/files/resume.pdf"
+              href="/assets/files/new-resume.pdf"
               download
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
