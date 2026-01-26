@@ -7,7 +7,6 @@ export default function Home() {
     <div className="relative min-h-[100dvh] md:min-h-screen w-full h-full">
       <SplineModel />
 
-
       <Float
         delay={0}
         className="hidden md:flex absolute bottom-8 right-8 flex-col items-end gap-2 z-20 pointer-events-none"
@@ -143,7 +142,7 @@ export default function Home() {
               Based in Bacolod, PH
             </span>
             <motion.a
-              href="/assets/files/resume.pdf"
+              href="/assets/files/new-resume.pdf"
               download
               whileHover={{ scale: 1.05, x: -5 }}
               whileTap={{ scale: 0.95 }}
