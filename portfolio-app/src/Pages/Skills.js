@@ -442,6 +442,19 @@ export default function Skills() {
             multimedia arts
           </h2>
         </FadeUp>
+        <FadeUp delay={0.4}>
+          <p className="text-sm md:text-base text-gray-500 mt-3 md:mt-4">
+            Portfolio Link:{" "}
+            <a
+              href="https://drive.google.com/drive/folders/1mg1usUSq29rV00za4jLQhAkAqXmmBWvR?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 underline transition-colors"
+            >
+              View Full Portfolio
+            </a>
+          </p>
+        </FadeUp>
       </div>
 
       <motion.div
