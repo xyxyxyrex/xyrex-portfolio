@@ -24,7 +24,7 @@ export default function Projects() {
         "/assets/projects/nmcg2.png",
         "/assets/projects/nmcg-3.png",
       ],
-      github: "https://github.com/username/project1",
+      github: "https://github.com/xyxyxyrex/negros-mangrove-conservation-app",
       stack: [
         { img: "/assets/icons/php.png", name: "PHP" },
         { img: "/assets/icons/android.png", name: "Android" },
@@ -40,7 +40,7 @@ export default function Projects() {
         "/assets/projects/cet-2.png",
         "/assets/projects/cet-3.png",
       ],
-      github: "https://github.com/username/project2",
+      github: "https://github.com/xyxyxyrex/cet-e-bulletin-board",
       stack: [{ img: "/assets/icons/php.png", name: "PHP" }],
     },
     {
@@ -76,7 +76,7 @@ export default function Projects() {
         "/assets/projects/carefind-7.png",
         "/assets/projects/carefind-8.png",
       ],
-      github: "https://github.com/username/project4",
+      github: "https://github.com/xyxyxyrex/carefind-final",
       stack: [
         { img: "/assets/icons/android.png", name: "Android" },
         { img: "/assets/icons/php.png", name: "PHP" },
@@ -85,16 +85,15 @@ export default function Projects() {
     },
     {
       id: 5,
-      title: "Email Phishing Detection System",
+      title: "Tono",
       description:
-        "A streamlit application designed to detect and prevent email phishing attacks using machine learning and AI",
+        "Tono is a location-aware web application that lets users attach notes, threads, polls, quotes, and music to specific places while enabling others to respond and interpret the tone of each message in context.",
       images: [
-        "/assets/projects/phishing-1.png",
-        "/assets/projects/phishing-2.png",
-        "/assets/projects/phishing-3.png",
-        "/assets/projects/phishing-4.png",
+        "/assets/projects/tono-1.png",
+        "/assets/projects/tono-2.png",
+        "/assets/projects/tono-3.png",
       ],
-      github: "https://github.com/username/project5",
+      github: "https://github.com/xyxyxyrex/wyd-wya",
       stack: [{ img: "/assets/icons/python.png", name: "Python" }],
     },
     {
@@ -113,7 +112,7 @@ export default function Projects() {
         "/assets/projects/thriftly-8.png",
         "/assets/projects/thriftly-9.png",
       ],
-      github: "https://github.com/username/project6",
+      github: "https://github.com/xyxyxyrex/Thriftlyapp",
       stack: [
         { img: "/assets/icons/android.png", name: "Android" },
         { img: "/assets/icons/php.png", name: "PHP" },
@@ -136,7 +135,7 @@ export default function Projects() {
   const nextImage = () => {
     if (activeProject) {
       setActiveImageIndex((prev) =>
-        prev === activeProject.images.length - 1 ? 0 : prev + 1
+        prev === activeProject.images.length - 1 ? 0 : prev + 1,
       );
     }
   };
@@ -144,7 +143,7 @@ export default function Projects() {
   const prevImage = () => {
     if (activeProject) {
       setActiveImageIndex((prev) =>
-        prev === 0 ? activeProject.images.length - 1 : prev - 1
+        prev === 0 ? activeProject.images.length - 1 : prev - 1,
       );
     }
   };
@@ -322,7 +321,7 @@ export default function Projects() {
                       e.target.parentElement.classList.add(
                         "bg-gradient-to-br",
                         "from-gray-200",
-                        "to-gray-300"
+                        "to-gray-300",
                       );
                     }}
                   />
@@ -505,7 +504,7 @@ export default function Projects() {
             </motion.div>
           )}
         </AnimatePresence>,
-        document.body
+        document.body,
       )}
     </>
   );

@@ -22,6 +22,7 @@ export default function App() {
       className="scroll-container"
       style={{
         overflowY: "scroll",
+        overflowX: "hidden",
         height: "100vh",
         scrollBehavior: "smooth",
       }}
