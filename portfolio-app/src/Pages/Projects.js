@@ -56,8 +56,8 @@ export default function Projects() {
       ],
       github: "https://github.com/xyxyxyrex/memora",
       stack: [
-        { img: "/assets/icons/php.png", name: "React" },
-        { img: "/assets/icons/flutter.webp", name: "Python" },
+        { img: "/assets/icons/react.png", name: "React" },
+        { img: "/assets/icons/python.png", name: "Python" },
       ],
     },
     {
