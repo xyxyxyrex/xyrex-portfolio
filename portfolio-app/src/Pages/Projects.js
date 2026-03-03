@@ -45,20 +45,19 @@ export default function Projects() {
     },
     {
       id: 3,
-      title: "DocSync",
+      title: "Memora-AI",
       description:
-        "A platform to connect Doctors with patients for seamless appointment scheduling and medical record sharing.",
+        "Learning Companion is a web application designed to help users study efficiently using PDFs, flashcards, quizzes, and gamified progress tracking.",
       images: [
-        "/assets/projects/docsync.png",
-        "/assets/projects/docsync-1.png",
-        "/assets/projects/docsync-2.png",
-        "/assets/projects/docsync-3.png",
-        "/assets/projects/docsync-4.png",
+        "/assets/projects/memora-1.png",
+        "/assets/projects/memora-2.png",
+        "/assets/projects/memora-3.png",
+        "/assets/projects/memora-4.png",
       ],
-      github: "https://github.com/username/project3",
+      github: "https://github.com/xyxyxyrex/memora",
       stack: [
-        { img: "/assets/icons/php.png", name: "PHP" },
-        { img: "/assets/icons/flutter.webp", name: "Flutter" },
+        { img: "/assets/icons/php.png", name: "React" },
+        { img: "/assets/icons/flutter.webp", name: "Python" },
       ],
     },
     {
