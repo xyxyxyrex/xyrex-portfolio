@@ -443,17 +443,28 @@ export default function Skills() {
           </h2>
         </FadeUp>
         <FadeUp delay={0.4}>
-          <p className="text-sm md:text-base text-gray-500 mt-3 md:mt-4">
-            Portfolio Link:{" "}
-            <a
-              href="https://drive.google.com/drive/folders/1mg1usUSq29rV00za4jLQhAkAqXmmBWvR?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 underline transition-colors"
+          <a
+            href="https://drive.google.com/drive/folders/1mg1usUSq29rV00za4jLQhAkAqXmmBWvR?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 mt-4 md:mt-5 px-5 py-2.5 bg-black text-white text-sm md:text-base font-medium rounded-full hover:bg-gray-800 transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95"
+          >
+            <span>View Full Portfolio</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
             >
-              View Full Portfolio
-            </a>
-          </p>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
+          </a>
         </FadeUp>
       </div>
 
