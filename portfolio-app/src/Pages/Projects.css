@@ -1,0 +1,195 @@
+@font-face { font-family: "Project Geist"; src: url("../assets/fonts/project-geist.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Caltris Chakra"; src: url("../assets/fonts/caltris-chakra-bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Lune Doto"; src: url("../assets/fonts/lune-doto.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+.code-projects { --code-paper: #eeede8; --code-ink: #252621; width: 100%; min-height: 100dvh; padding: 32px 2.5% 110px; background: var(--code-paper); color: var(--code-ink); font: 400 14px/1.5 "Project Geist", "Inter", sans-serif; }
+.code-header { margin-bottom: 24px; }
+.code-section-label { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid #25262130; font: 10px/1.3 ui-monospace, Consolas, monospace; letter-spacing: 1.2px; }
+.code-title-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 70px; padding-top: 20px; }
+.code-title-row h2 { margin: 0; font: 600 clamp(25px, 3vw, 44px)/1.1 ui-monospace, Consolas, monospace; letter-spacing: -2.5px; }
+.code-title-row p { margin: 0; color: #494d43; font-size: 12px; }
+.code-title-row p span { color: #7c7e74; font-size: 10px; }
+.code-back { display: flex; align-items: center; gap: 9px; padding: 10px 0 10px 12px; background: none; border: 0; font-size: 12px; cursor: pointer; }
+.project-board-shell { position: relative; isolation: isolate; overflow: hidden; height: clamp(600px, calc(100dvh - 280px), 850px); }
+.project-board { display: grid; width: 100%; height: 100%; min-height: 0; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: repeat(4, minmax(0, 1fr)); gap: 4px; padding: 0; background: transparent; border: 0; overflow: hidden; }
+.project-directory { grid-template-areas: "parity parity parity parity parity parity parity parity lune lune lune lune" "parity parity parity parity parity parity parity parity spotitauri spotitauri spotitauri spotitauri" "nmcg nmcg nmcg nmcg memora memora memora memora cet cet cet cet" "carefind carefind carefind tono tono tono thriftly thriftly thriftly caltris caltris caltris"; }
+.project-sign { width: 100%; height: 100%; position: relative; display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; min-width: 0; min-height: 0; padding: 17px 20px; overflow: hidden; background: var(--brand-bg); color: var(--brand-fg); text-align: left; border: 0; cursor: pointer; filter: saturate(0.45); transition: filter 0.22s ease; }
+.project-sign::after { content: ""; position: absolute; inset: auto 0 0; height: 3px; background: linear-gradient(90deg, var(--brand-accent), var(--brand-secondary)); opacity: 1; }
+.sign-hover-sweep { position: absolute; inset: 0; z-index: 0; background: color-mix(in srgb, var(--brand-accent) 22%, transparent); pointer-events: none; transform: scaleX(0); transform-origin: left center; animation: code-project-sweep var(--project-hover-duration) linear forwards; }
+@keyframes code-project-sweep { to { transform: scaleX(1); } }
+.sign-meta, .sign-footer { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.sign-meta { font: 9px/1.2 ui-monospace, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.6px; }
+.sign-meta svg { flex-shrink: 0; opacity: 0.6; transition: transform 0.3s; }
+.sign-identity { position: relative; z-index: 1; display: flex; align-items: center; gap: 14px; margin: 18px 0; }
+.sign-wordmark { display: block; min-width: 0; font-size: clamp(28px, 3.3vw, 56px); font-weight: 600; line-height: 0.95; letter-spacing: -2px; white-space: pre-line; overflow-wrap: anywhere; }
+.sign-footer { font-size: 10px; line-height: 1.35; opacity: 0.75; }
+.sign-favorite { display: inline-block; flex-shrink: 0; padding: 4px 8px; border: 0; color: var(--brand-accent); font: 9px/1.2 ui-monospace, Consolas, monospace; opacity: 0.9; }
+.project-sign-parity { padding: 24px 28px; }
+.sign-identity-parity { gap: clamp(20px, 3vw, 45px); }
+.sign-identity-parity .sign-wordmark { font-size: clamp(86px, 11vw, 180px); font-weight: 600; letter-spacing: -0.075em; }
+.sign-equals { display: flex; flex-direction: column; gap: 12px; width: clamp(40px, 5vw, 80px); flex-shrink: 0; }
+.sign-equals i { height: 8px; width: 100%; background: var(--brand-accent); }
+.sign-identity-lune { justify-content: space-between; gap: 15px; margin: 8px 0; }
+.sign-identity-lune .sign-wordmark { font-family: "Lune Doto", monospace; font-size: clamp(44px, 4vw, 70px); font-weight: 700; letter-spacing: -2px; }
+.sign-orbit { display: flex; align-items: center; gap: 4px; height: 30px; }
+.sign-orbit i { width: 3px; height: 8px; background: currentColor; }
+.sign-orbit i:nth-child(2), .sign-orbit i:nth-child(4) { height: 18px; }
+.sign-orbit i:nth-child(3) { height: 28px; }
+.sign-identity-spotitauri .sign-wordmark { font: 600 clamp(21px, 2.5vw, 40px)/1.1 ui-monospace, Consolas, monospace; letter-spacing: -1.5px; }
+.sign-logo { flex-shrink: 0; width: 48px; height: 48px; object-fit: contain; }
+.sign-identity-tono { gap: 8px; }
+.sign-identity-tono .sign-logo { width: 32px; height: 32px; }
+.sign-identity-cet .sign-logo { width: 46px; height: 46px; }
+.sign-identity-thriftly .sign-logo { width: 45px; height: 52px; }
+.sign-identity-memora .sign-wordmark { font-size: clamp(28px, 3vw, 46px); }
+.sign-identity-cet { margin: 8px 0; }
+.sign-identity-cet .sign-wordmark { font-size: clamp(24px, 2.5vw, 38px); line-height: 0.95; letter-spacing: -1.5px; }
+.sign-identity-tono .sign-wordmark { font-size: clamp(28px, 3.3vw, 50px); font-weight: 450; }
+.sign-identity-thriftly .sign-wordmark { font-size: clamp(30px, 3vw, 48px); }
+.sign-identity-caltris .sign-wordmark { font: 700 clamp(30px, 3.5vw, 56px)/1 "Caltris Chakra", ui-monospace, monospace; letter-spacing: -1.5px; }
+.sign-title-accent { color: var(--brand-accent); }
+.project-sign-tono .sign-meta { letter-spacing: 0; font-size: 8px; }
+.project-sign-tono .sign-footer { font-size: 9px; }
+@media (hover: hover) {
+  .project-sign:hover, .project-cell:hover { filter: saturate(1.35); }
+  .project-sign:hover .sign-meta svg { transform: translate(2px, -2px); color: var(--brand-accent); opacity: 1; }
+}
+.project-sign:focus-visible, .project-cell:focus-within { filter: saturate(1.35); }
+.project-sign:focus-visible { outline: 2px solid var(--brand-accent); outline-offset: -5px; }
+.project-detail { grid-template-areas: "hero hero hero hero hero hero hero hero overview overview overview overview" "hero hero hero hero hero hero hero hero overview overview overview overview" "gallery gallery gallery gallery gallery gallery gallery gallery stack stack stack stack" "gallery gallery gallery gallery gallery gallery gallery gallery links links links links"; position: absolute; inset: 0; }
+.project-cell { width: 100%; height: 100%; min-width: 0; min-height: 0; padding: 20px; background: var(--brand-bg); color: var(--brand-fg); overflow: hidden; filter: saturate(0.45); transition: filter 0.22s ease; }
+.project-cell-label { display: block; color: inherit; opacity: 0.7; font: 9px/1.4 ui-monospace, Consolas, monospace; letter-spacing: 0.5px; text-transform: uppercase; }
+.project-main-media { position: relative; grid-area: hero; margin: 0; padding: 0; }
+.project-media-stage { position: relative; display: grid; place-items: center; width: 100%; height: 100%; min-height: 0; padding: 0; border: 0; background: var(--brand-bg); cursor: zoom-in; overflow: hidden; }
+.project-media-image { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-height: none; object-fit: cover; object-position: center top; }
+.is-artwork .project-media-image { object-fit: contain; object-position: center; padding: clamp(25px, 5vw, 80px); }
+.project-expand { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 30px; height: 30px; background: #eeede8d9; border: 0; color: #33362e; }
+.project-main-media figcaption { pointer-events: none; position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; gap: 12px; padding: 28px 14px 12px; background: linear-gradient(transparent, #171b15d9); color: #f4f1e8; font: 9px/1.4 ui-monospace, Consolas, monospace; }
+.project-overview { grid-area: overview; overflow-y: auto; scrollbar-width: thin; }
+.project-overview h3 { margin: 12px 0; font-size: clamp(29px, 3vw, 45px); font-weight: 600; letter-spacing: -1.8px; line-height: 1; }
+.project-overview h3:focus { outline: none; }
+.project-personal-note { margin: 10px 0; font-size: 10px; color: var(--brand-accent); }
+.project-description { margin: 14px 0; font-size: 12px; line-height: 1.65; color: inherit; opacity: 0.85; }
+.project-features { display: grid; gap: 7px; margin: 20px 0 0; padding: 15px 0 0; border: 0; list-style: none; font-size: 10px; color: inherit; opacity: 0.85; }
+.project-features li::before { content: "+"; margin-right: 8px; }
+.project-gallery { position: relative; grid-area: gallery; padding: 0; }
+.project-cell-heading { pointer-events: none; position: absolute; top: 0; left: 0; right: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px 30px; background: linear-gradient(#171b1599, transparent); }
+.project-cell-heading .project-cell-label { color: #f4f1e8; }
+.project-thumbnails { display: grid; width: 100%; height: 100%; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr); grid-template-rows: minmax(0, 1fr); gap: 2px; overflow-x: auto; overflow-y: hidden; padding: 0; background: var(--code-paper); scrollbar-width: thin; }
+.project-thumbnail { position: relative; display: block; min-width: 0; min-height: 0; padding: 0; border: 0; background: var(--brand-bg); color: #f4f1e8; text-align: left; cursor: pointer; overflow: hidden; }
+.project-thumbnail img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.project-thumbnail.is-artwork img { object-fit: contain; object-position: center; padding: 20px; }
+.project-thumbnail > span:not(.project-image-error) { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 10px 12px; background: linear-gradient(transparent, #171b15c9); font: 8px/1.4 ui-monospace, Consolas, monospace; }
+.project-thumbnail[aria-pressed="true"]::after { content: ""; position: absolute; inset: 0; border: 2px solid var(--brand-accent); pointer-events: none; }
+.project-stack { grid-area: stack; overflow-y: auto; scrollbar-width: thin; }
+.project-stack ul { display: flex; flex-wrap: wrap; gap: 7px; margin: 18px 0 0; padding: 0; list-style: none; }
+.project-stack li { padding: 5px 8px; border: 0; background: color-mix(in srgb, currentColor 8%, transparent); font-size: 10px; }
+.project-links { grid-area: links; display: flex; flex-direction: column; gap: 10px; justify-content: center; overflow-y: auto; scrollbar-width: thin; }
+.project-links a { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 12px; }
+.project-links a:hover { color: var(--brand-accent); }
+.project-private-note { font-size: 9px; color: inherit; opacity: 0.7; }
+.code-footer { display: flex; justify-content: space-between; gap: 24px; min-height: 24px; margin-top: 16px; color: #7a7c70; font: 8px/1.4 ui-monospace, Consolas, monospace; letter-spacing: 0.6px; }
+.code-projects button, .code-projects a { -webkit-tap-highlight-color: transparent; }
+.code-projects button:focus-visible, .code-projects a:focus-visible { outline: 2px solid #64764f; outline-offset: 3px; }
+.project-sign:focus-visible { outline-offset: -5px !important; }
+.project-image-error { display: block; padding: 20px; font-size: 12px; color: #6e7264; line-height: 1.6; }
+.project-lightbox { position: fixed; inset: 0; width: min(1240px, 94vw); max-width: none; max-height: 92dvh; margin: auto; padding: 0; border: 1px solid #ffffff38; background: #1b1d19; color: #eeede8; font: 13px/1.5 "Project Geist", sans-serif; }
+.project-lightbox::backdrop { background: #151713d9; backdrop-filter: blur(9px); }
+.project-lightbox-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #ffffff20; font-size: 12px; }
+.project-lightbox-toolbar button, .project-lightbox-controls button { display: grid; place-items: center; flex-shrink: 0; width: 38px; height: 38px; padding: 0; border: 1px solid #ffffff26; background: transparent; color: inherit; cursor: pointer; }
+.project-lightbox-stage { display: grid; place-items: center; padding: 20px; }
+.project-lightbox-stage img { display: block; max-width: 100%; max-height: 72dvh; object-fit: contain; }
+.project-lightbox-stage.is-artwork img { width: 240px; max-width: 70vw; }
+.project-lightbox-controls { display: flex; justify-content: center; align-items: center; gap: 24px; padding: 12px; }
+.project-text-accessible { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.project-typing-character { animation: code-project-type 1ms step-end both; animation-delay: calc(var(--cell-enter-delay, 0ms) + var(--character-delay, 0ms)); }
+@keyframes code-project-type { from { opacity: 0; } to { opacity: 1; } }
+.project-sign-slot, .project-cell-slot { min-width: 0; min-height: 0; overflow: hidden; }
+.project-directory.is-leaving { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.project-directory.is-leaving .project-sign { animation: code-project-card-out 280ms cubic-bezier(.4,0,.8,.2) both; animation-delay: calc(var(--card-order) * 18ms); transition: none; will-change: transform; }
+.project-directory.is-leaving .project-sign.is-current { filter: saturate(1.35); }
+.project-detail.is-entering .project-cell { animation: code-project-card-in var(--project-card-duration) cubic-bezier(.22,1,.36,1) both; animation-delay: calc(var(--project-enter-lead) + var(--card-order) * var(--project-card-step)); transition: none; will-change: transform; }
+.project-directory.is-returning { position: absolute; inset: 0; pointer-events: none; }
+.project-directory.is-returning .project-sign { animation: code-project-sign-return var(--project-return-duration) cubic-bezier(.22,1,.36,1) both; animation-delay: calc(var(--project-enter-lead) + (var(--project-last-sign) - var(--card-order)) * var(--project-return-step)); transition: none; will-change: transform; }
+.project-detail.is-leaving { z-index: 2; pointer-events: none; }
+.project-detail.is-leaving .project-cell { animation: code-project-card-down 260ms cubic-bezier(.4,0,.8,.2) both; animation-delay: calc((4 - var(--card-order)) * 24ms); transition: none; will-change: transform; }
+@keyframes code-project-card-out { from { transform: translateY(0); } to { transform: translateY(-102%); } }
+@keyframes code-project-card-in { from { transform: translateY(102%); } to { transform: translateY(0); } }
+@keyframes code-project-card-down { from { transform: var(--reverse-start, translateY(0)); } to { transform: translateY(102%); } }
+@keyframes code-project-sign-return { from { transform: var(--reverse-start, translateY(-102%)); } to { transform: translateY(0); } }
+@media (max-width: 1100px) and (min-width: 701px) {
+  .project-board { grid-template-rows: repeat(4, minmax(0, 1fr)); }
+  .project-sign { padding: 15px 14px; }
+  .sign-footer { font-size: 9px; }
+  .sign-identity-spotitauri { gap: 7px; }
+  .sign-identity-spotitauri .sign-logo { width: 26px; height: 26px; }
+  .sign-identity-carefind, .sign-identity-thriftly { gap: 8px; }
+  .sign-identity-carefind .sign-logo, .sign-identity-thriftly .sign-logo { width: 32px; height: 36px; }
+  .sign-identity-carefind .sign-wordmark { font-size: 32px; }
+  .sign-meta { font-size: 8px; }
+  .project-cell { padding: 15px; }
+  .project-main-media, .project-gallery { padding: 0; }
+  .project-description { font-size: 11px; }
+  .project-features { font-size: 9px; }
+}
+@media (max-width: 850px) {
+  .project-board-shell { height: clamp(1050px, 130dvh, 1250px); }
+  .project-directory { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(7, minmax(0, 1fr)); grid-template-areas: "parity parity" "parity parity" "lune spotitauri" "nmcg memora" "cet carefind" "tono thriftly" "caltris caltris"; }
+  .sign-identity-parity .sign-wordmark { font-size: clamp(90px, 17vw, 150px); }
+  .sign-identity-lune .sign-wordmark { font-size: 52px; }
+  .sign-wordmark { font-size: 36px; }
+  .sign-identity-spotitauri .sign-wordmark { font-size: clamp(18px, 4vw, 30px); }
+  .sign-identity-cet .sign-wordmark { font-size: 30px; }
+  .sign-identity-thriftly .sign-wordmark { font-size: 39px; }
+  .project-detail { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(6, minmax(0, 1fr)); grid-template-areas: "hero hero" "hero hero" "overview overview" "overview overview" "gallery gallery" "stack links"; }
+  .project-overview { padding: 24px; }
+  .project-overview h3 { font-size: 36px; }
+  .project-description { max-width: 560px; font-size: 13px; }
+  .project-features { font-size: 11px; }
+  .project-thumbnails { grid-auto-columns: minmax(140px, 1fr); }
+}
+@media (max-width: 550px) {
+  .code-projects { padding: 35px 18px 120px; }
+  .code-section-label { font-size: 8px; padding-bottom: 16px; letter-spacing: 0.6px; }
+  .code-title-row { gap: 12px; align-items: flex-start; }
+  .code-title-row h2 { font-size: 27px; letter-spacing: -1.7px; }
+  .code-title-row p { max-width: 125px; font-size: 10px; }
+  .code-title-row p span { font-size: 9px; }
+  .code-back { padding-top: 5px; font-size: 10px; gap: 5px; }
+  .project-sign { padding: 14px 12px; }
+  .project-sign-parity { padding: 20px; }
+  .sign-identity { gap: 8px; }
+  .sign-meta { font-size: 7px; letter-spacing: 0; }
+  .sign-meta svg { width: 13px; height: 13px; }
+  .sign-wordmark { font-size: 29px; letter-spacing: -1.3px; }
+  .sign-identity-parity .sign-wordmark { font-size: clamp(85px, 22vw, 125px); }
+  .sign-equals { width: 34px; gap: 9px; }
+  .sign-equals i { height: 5px; }
+  .sign-identity-lune .sign-wordmark { font-size: 44px; }
+  .sign-orbit { gap: 2px; }
+  .sign-orbit i { width: 2px; }
+  .sign-identity-spotitauri { gap: 5px; flex-wrap: wrap; }
+  .sign-identity-spotitauri .sign-wordmark { font-size: clamp(16px, 4.3vw, 23px); letter-spacing: -0.8px; }
+  .sign-identity-spotitauri .sign-logo { width: 23px; height: 23px; }
+  .sign-identity-nmcg .sign-logo { width: 28px; height: 28px; }
+  .sign-identity-cet .sign-logo, .sign-identity-carefind .sign-logo { width: 32px; height: 32px; }
+  .sign-identity-thriftly .sign-logo { width: 30px; height: 36px; }
+  .sign-identity-tono .sign-logo { width: 26px; height: 26px; }
+  .sign-identity-memora .sign-wordmark { font-size: clamp(21px, 5.4vw, 29px); }
+  .sign-identity-cet .sign-wordmark { font-size: 29px; }
+  .sign-identity-thriftly .sign-wordmark { font-size: 34px; }
+  .sign-footer, .project-sign-tono .sign-footer { font-size: 8px; }
+  .sign-favorite { font-size: 7px; padding: 4px 5px; }
+  .project-sign-parity .sign-footer { font-size: 9px; }
+  .project-cell { padding: 15px; }
+  .project-main-media, .project-gallery { padding: 0; }
+  .project-main-media figcaption { font-size: 8px; padding: 28px 10px 10px; }
+  .project-main-media figcaption > span:first-child { max-width: 65%; }
+  .project-stack li { padding: 4px 5px; font-size: 9px; }
+  .project-links a { font-size: 10px; }
+  .project-private-note { font-size: 8px; }
+  .code-footer { font-size: 7px; gap: 15px; }
+  .code-footer > span:last-child { text-align: right; }
+  .project-lightbox-toolbar { font-size: 10px; }
+  .project-lightbox-stage { padding: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .code-projects *, .code-projects *::before, .code-projects *::after { animation: none; transition: none; } }

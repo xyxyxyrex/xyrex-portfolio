@@ -194,7 +194,7 @@ code {
 }
 
 /* Glass morphism effect */
-.glass {
+.glass-surface {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -221,4 +221,8 @@ code {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: gradientShift 4s ease infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html, [data-scroll-container] { scroll-behavior: auto !important; }
 }

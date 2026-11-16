@@ -23,7 +23,7 @@ export default function App() {
       style={{
         overflowY: "scroll",
         overflowX: "hidden",
-        height: "100vh",
+        height: "100dvh",
         scrollBehavior: "smooth",
       }}
     >
@@ -41,6 +41,10 @@ export default function App() {
           min-height: 100dvh;
           scroll-snap-align: none;
         }
+        #home { min-height: 620px; height: 100dvh; }
+        #about, #projects, #skills { height: auto; min-height: 100dvh; }
+        @media (max-width: 700px) { #home { min-height: 600px; } }
+        @media (max-height: 650px) and (min-width: 701px) { #home { min-height: 480px; } }
         @media (min-width: 768px) {
           .section-wrapper {
             height: 100vh;
@@ -50,7 +54,7 @@ export default function App() {
         }
       `}</style>
       <Navbar />
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {sections.map((section, index) => (
           <SectionWrapper key={index} className="section-container">
             <div

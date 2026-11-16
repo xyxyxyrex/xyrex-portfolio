@@ -1,0 +1,90 @@
+.portfolio-dock {
+  --dock-ink: #252621;
+  --dock-paper: #eeede8;
+  --dock-item-width: 54px;
+  --dock-item-height: 50px;
+  --dock-ease: cubic-bezier(.22, 1, .36, 1);
+  position: fixed;
+  z-index: 100;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  width: max-content;
+  transform: translateX(-50%);
+  color: var(--dock-ink);
+}
+.dock-enter {
+  position: relative;
+  width: calc(var(--dock-item-width) * 5 + 30px);
+  height: calc(var(--dock-item-height) + 14px);
+  transition: width .4s var(--dock-ease), height .4s var(--dock-ease);
+}
+.dock-surface { position: absolute; inset: 0; }
+/* The library measures its decorative rim only on resize. Our border follows
+   the actual glass surface throughout the scroll-driven size transition. */
+.dock-surface > :not(.dock-glass) { display: none; }
+.dock-glass { width: max-content; }
+.portfolio-dock .dock-glass > .glass {
+  overflow: visible !important;
+  border: 1px solid #25262138;
+  background: #eeede8e6;
+  box-shadow: 0 6px 18px #25262112, inset 0 1px 0 #faf9f580 !important;
+}
+.dock-glass .glass__warp { border-radius: inherit; overflow: hidden; pointer-events: none; }
+.dock-links { display: flex; gap: 4px; align-items: center; list-style: none; margin: 0; padding: 0; }
+.dock-links li { display: block; margin: 0; padding: 0; }
+.dock-link {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--dock-item-width);
+  height: var(--dock-item-height);
+  border: 1px solid transparent;
+  border-radius: 11px;
+  color: #62645b;
+  background: transparent;
+  text-decoration: none;
+  text-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: width .4s var(--dock-ease), height .4s var(--dock-ease), background-color .2s, color .2s, border-color .2s;
+}
+.dock-link svg { position: relative; z-index: 1; transition: transform .25s var(--dock-ease); }
+.dock-link.is-active { background: var(--dock-ink); border-color: var(--dock-ink); color: var(--dock-paper); }
+.dock-link:focus-visible { outline: 2px solid var(--dock-ink); outline-offset: 3px; }
+.dock-active-dot { position: absolute; bottom: 5px; width: 2px; height: 2px; background: currentColor; border-radius: 50%; opacity: 0; }
+.is-active .dock-active-dot { opacity: .65; }
+.dock-tooltip {
+  position: absolute;
+  bottom: calc(100% + 18px);
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  transform: translate(-50%, 4px);
+  padding: 8px 10px;
+  border: 1px solid #25262130;
+  border-radius: 4px;
+  background: var(--dock-paper);
+  color: var(--dock-ink);
+  font: 10px/1.2 ui-monospace, Consolas, monospace;
+  letter-spacing: -.2px;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px #2526210a;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .16s, transform .2s var(--dock-ease);
+}
+.dock-tooltip > span { color: #84867c; font-size: 8px; }
+.dock-link:focus-visible .dock-tooltip { opacity: 1; transform: translate(-50%, 0); }
+.portfolio-dock.is-compact { --dock-item-width: 46px; --dock-item-height: 44px; }
+@media (hover: hover) {
+  .dock-link:not(.is-active):hover { color: var(--dock-ink); background: #2526210b; border-color: #25262112; }
+  .dock-link:hover svg { transform: translateY(-2px); }
+  .dock-link:hover .dock-tooltip { opacity: 1; transform: translate(-50%, 0); }
+}
+@media (max-width: 700px) {
+  .portfolio-dock { --dock-item-width: 48px; --dock-item-height: 48px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); }
+  .portfolio-dock.is-compact { --dock-item-width: 46px; --dock-item-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-dock *, .portfolio-dock *::before, .portfolio-dock *::after { transition: none !important; animation: none !important; }
+}

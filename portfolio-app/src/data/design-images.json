@@ -1,0 +1,692 @@
+{
+  "blanc": {
+    "width": 2480,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/blanc-400.webp",
+        "bytes": 35492
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/blanc-800.webp",
+        "bytes": 85152
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/blanc-1200.webp",
+        "bytes": 156032
+      }
+    ],
+    "viewer": "/assets/skills/optimized/blanc-viewer.webp",
+    "viewerBytes": 415078
+  },
+  "midsommar": {
+    "width": 2480,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/midsommar-400.webp",
+        "bytes": 67374
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/midsommar-800.webp",
+        "bytes": 260078
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/midsommar-1200.webp",
+        "bytes": 533202
+      }
+    ],
+    "viewer": "/assets/skills/optimized/midsommar-viewer.webp",
+    "viewerBytes": 1256484
+  },
+  "the-ruins": {
+    "width": 2480,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/the-ruins-400.webp",
+        "bytes": 47638
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/the-ruins-800.webp",
+        "bytes": 144010
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/the-ruins-1200.webp",
+        "bytes": 267756
+      }
+    ],
+    "viewer": "/assets/skills/optimized/the-ruins-viewer.webp",
+    "viewerBytes": 626272
+  },
+  "bauhaus": {
+    "width": 2480,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/bauhaus-400.webp",
+        "bytes": 30324
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/bauhaus-800.webp",
+        "bytes": 72960
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/bauhaus-1200.webp",
+        "bytes": 115542
+      }
+    ],
+    "viewer": "/assets/skills/optimized/bauhaus-viewer.webp",
+    "viewerBytes": 209802
+  },
+  "kanibalismo": {
+    "width": 2480,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/kanibalismo-400.webp",
+        "bytes": 69834
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/kanibalismo-800.webp",
+        "bytes": 211824
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/kanibalismo-1200.webp",
+        "bytes": 367912
+      }
+    ],
+    "viewer": "/assets/skills/optimized/kanibalismo-viewer.webp",
+    "viewerBytes": 760642
+  },
+  "the-dooo-show": {
+    "width": 2480,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/the-dooo-show-400.webp",
+        "bytes": 64992
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/the-dooo-show-800.webp",
+        "bytes": 220026
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/the-dooo-show-1200.webp",
+        "bytes": 432622
+      }
+    ],
+    "viewer": "/assets/skills/optimized/the-dooo-show-viewer.webp",
+    "viewerBytes": 1002826
+  },
+  "cybercore": {
+    "width": 2480,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/cybercore-400.webp",
+        "bytes": 81948
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/cybercore-800.webp",
+        "bytes": 272674
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/cybercore-1200.webp",
+        "bytes": 518214
+      }
+    ],
+    "viewer": "/assets/skills/optimized/cybercore-viewer.webp",
+    "viewerBytes": 1119694
+  },
+  "look-at-the-sky": {
+    "width": 2480,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/look-at-the-sky-400.webp",
+        "bytes": 71412
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/look-at-the-sky-800.webp",
+        "bytes": 227562
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/look-at-the-sky-1200.webp",
+        "bytes": 404326
+      }
+    ],
+    "viewer": "/assets/skills/optimized/look-at-the-sky-viewer.webp",
+    "viewerBytes": 1097544
+  },
+  "neon-city": {
+    "width": 1296,
+    "height": 864,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/neon-city-400.webp",
+        "bytes": 31756
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/neon-city-800.webp",
+        "bytes": 99608
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/neon-city-1200.webp",
+        "bytes": 184940
+      }
+    ],
+    "viewer": "/assets/skills/optimized/neon-city-viewer.webp",
+    "viewerBytes": 275450
+  },
+  "distant-ruins": {
+    "width": 1296,
+    "height": 864,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/distant-ruins-400.webp",
+        "bytes": 17778
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/distant-ruins-800.webp",
+        "bytes": 59662
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/distant-ruins-1200.webp",
+        "bytes": 100814
+      }
+    ],
+    "viewer": "/assets/skills/optimized/distant-ruins-viewer.webp",
+    "viewerBytes": 155910
+  },
+  "alpine-world": {
+    "width": 1296,
+    "height": 864,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/alpine-world-400.webp",
+        "bytes": 30908
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/alpine-world-800.webp",
+        "bytes": 106478
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/alpine-world-1200.webp",
+        "bytes": 200972
+      }
+    ],
+    "viewer": "/assets/skills/optimized/alpine-world-viewer.webp",
+    "viewerBytes": 303994
+  },
+  "cosmic-drift": {
+    "width": 2700,
+    "height": 1800,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/cosmic-drift-400.webp",
+        "bytes": 29686
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/cosmic-drift-800.webp",
+        "bytes": 86036
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/cosmic-drift-1200.webp",
+        "bytes": 150748
+      }
+    ],
+    "viewer": "/assets/skills/optimized/cosmic-drift-viewer.webp",
+    "viewerBytes": 392484
+  },
+  "marketplace-study": {
+    "width": 1917,
+    "height": 955,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/marketplace-study-400.webp",
+        "bytes": 6508
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/marketplace-study-800.webp",
+        "bytes": 16960
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/marketplace-study-1200.webp",
+        "bytes": 30696
+      }
+    ],
+    "viewer": "/assets/skills/optimized/marketplace-study-viewer.webp",
+    "viewerBytes": 72692
+  },
+  "conservation-study": {
+    "width": 1910,
+    "height": 961,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/conservation-study-400.webp",
+        "bytes": 4916
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/conservation-study-800.webp",
+        "bytes": 12704
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/conservation-study-1200.webp",
+        "bytes": 22212
+      }
+    ],
+    "viewer": "/assets/skills/optimized/conservation-study-viewer.webp",
+    "viewerBytes": 52072
+  },
+  "healthcare-study": {
+    "width": 1913,
+    "height": 967,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/healthcare-study-400.webp",
+        "bytes": 3344
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/healthcare-study-800.webp",
+        "bytes": 8838
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/healthcare-study-1200.webp",
+        "bytes": 15856
+      }
+    ],
+    "viewer": "/assets/skills/optimized/healthcare-study-viewer.webp",
+    "viewerBytes": 37728
+  },
+  "application-flows": {
+    "width": 1914,
+    "height": 962,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/application-flows-400.webp",
+        "bytes": 4914
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/application-flows-800.webp",
+        "bytes": 12618
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/application-flows-1200.webp",
+        "bytes": 22406
+      }
+    ],
+    "viewer": "/assets/skills/optimized/application-flows-viewer.webp",
+    "viewerBytes": 52828
+  },
+  "obsession": {
+    "width": 2160,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/obsession-400.webp",
+        "bytes": 69984
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/obsession-800.webp",
+        "bytes": 257860
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/obsession-1200.webp",
+        "bytes": 524782
+      }
+    ],
+    "viewer": "/assets/skills/optimized/obsession-viewer.webp",
+    "viewerBytes": 1370900
+  },
+  "fade": {
+    "width": 2160,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/fade-400.webp",
+        "bytes": 33482
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/fade-800.webp",
+        "bytes": 110752
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/fade-1200.webp",
+        "bytes": 213858
+      }
+    ],
+    "viewer": "/assets/skills/optimized/fade-viewer.webp",
+    "viewerBytes": 567642
+  },
+  "glass": {
+    "width": 2160,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/glass-400.webp",
+        "bytes": 48300
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/glass-800.webp",
+        "bytes": 184180
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/glass-1200.webp",
+        "bytes": 396588
+      }
+    ],
+    "viewer": "/assets/skills/optimized/glass-viewer.webp",
+    "viewerBytes": 1075338
+  },
+  "08": {
+    "width": 2480,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/08-400.webp",
+        "bytes": 38844
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/08-800.webp",
+        "bytes": 125650
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/08-1200.webp",
+        "bytes": 241984
+      }
+    ],
+    "viewer": "/assets/skills/optimized/08-viewer.webp",
+    "viewerBytes": 602266
+  },
+  "camera": {
+    "width": 2160,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/camera-400.webp",
+        "bytes": 25038
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/camera-800.webp",
+        "bytes": 69172
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/camera-1200.webp",
+        "bytes": 131808
+      }
+    ],
+    "viewer": "/assets/skills/optimized/camera-viewer.webp",
+    "viewerBytes": 335456
+  },
+  "middle": {
+    "width": 2160,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/middle-400.webp",
+        "bytes": 35104
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/middle-800.webp",
+        "bytes": 99140
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/middle-1200.webp",
+        "bytes": 178900
+      }
+    ],
+    "viewer": "/assets/skills/optimized/middle-viewer.webp",
+    "viewerBytes": 374114
+  },
+  "russian-roulette": {
+    "width": 2160,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/russian-roulette-400.webp",
+        "bytes": 49706
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/russian-roulette-800.webp",
+        "bytes": 140744
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/russian-roulette-1200.webp",
+        "bytes": 229030
+      }
+    ],
+    "viewer": "/assets/skills/optimized/russian-roulette-viewer.webp",
+    "viewerBytes": 455140
+  },
+  "kataomoi": {
+    "width": 2160,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/kataomoi-400.webp",
+        "bytes": 15682
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/kataomoi-800.webp",
+        "bytes": 43740
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/kataomoi-1200.webp",
+        "bytes": 73840
+      }
+    ],
+    "viewer": "/assets/skills/optimized/kataomoi-viewer.webp",
+    "viewerBytes": 148266
+  },
+  "past-wont-leave-my-bed": {
+    "width": 2480,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/past-wont-leave-my-bed-400.webp",
+        "bytes": 40176
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/past-wont-leave-my-bed-800.webp",
+        "bytes": 165272
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/past-wont-leave-my-bed-1200.webp",
+        "bytes": 389118
+      }
+    ],
+    "viewer": "/assets/skills/optimized/past-wont-leave-my-bed-viewer.webp",
+    "viewerBytes": 1116578
+  },
+  "poetic-justice": {
+    "width": 2480,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/poetic-justice-400.webp",
+        "bytes": 21292
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/poetic-justice-800.webp",
+        "bytes": 58390
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/poetic-justice-1200.webp",
+        "bytes": 98862
+      }
+    ],
+    "viewer": "/assets/skills/optimized/poetic-justice-viewer.webp",
+    "viewerBytes": 198460
+  },
+  "prisms": {
+    "width": 2480,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/prisms-400.webp",
+        "bytes": 15548
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/prisms-800.webp",
+        "bytes": 51900
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/prisms-1200.webp",
+        "bytes": 105500
+      }
+    ],
+    "viewer": "/assets/skills/optimized/prisms-viewer.webp",
+    "viewerBytes": 270308
+  },
+  "ouroborus": {
+    "width": 2480,
+    "height": 3508,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/ouroborus-400.webp",
+        "bytes": 37896
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/ouroborus-800.webp",
+        "bytes": 90354
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/ouroborus-1200.webp",
+        "bytes": 145596
+      }
+    ],
+    "viewer": "/assets/skills/optimized/ouroborus-viewer.webp",
+    "viewerBytes": 304550
+  },
+  "mirror": {
+    "width": 2048,
+    "height": 2048,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/mirror-400.webp",
+        "bytes": 20180
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/mirror-800.webp",
+        "bytes": 45880
+      },
+      {
+        "width": 1200,
+        "src": "/assets/skills/optimized/mirror-1200.webp",
+        "bytes": 75726
+      }
+    ],
+    "viewer": "/assets/skills/optimized/mirror-viewer.webp",
+    "viewerBytes": 177760
+  },
+  "cyberpunk": {
+    "width": 1080,
+    "height": 1080,
+    "variants": [
+      {
+        "width": 400,
+        "src": "/assets/skills/optimized/cyberpunk-400.webp",
+        "bytes": 63656
+      },
+      {
+        "width": 800,
+        "src": "/assets/skills/optimized/cyberpunk-800.webp",
+        "bytes": 299388
+      },
+      {
+        "width": 1080,
+        "src": "/assets/skills/optimized/cyberpunk-1080.webp",
+        "bytes": 653656
+      }
+    ],
+    "viewer": "/assets/skills/optimized/cyberpunk-viewer.webp",
+    "viewerBytes": 755120
+  }
+}

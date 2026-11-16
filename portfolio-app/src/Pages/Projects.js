@@ -1,510 +1,253 @@
-import { useState } from "react";
-import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  FadeUp,
-  Float,
-  StaggerContainer,
-  StaggerItem,
-} from "../Components/PageTransition";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import Icon from "../Components/Icon";
+import { projects } from "../data/projects";
+import "./Projects.css";
+
+const PREVIEW_DELAY = 700;
+const CARD_DURATION = 360;
+const CARD_STAGGER = 32;
+const ENTER_LEAD = 80;
+const TRANSITION_TIMEOUT = ENTER_LEAD + 4 * CARD_STAGGER + CARD_DURATION + 80;
+const RETURN_DURATION = 300;
+const RETURN_STAGGER = 16;
+const EXIT_TIMEOUT = ENTER_LEAD + (projects.length - 1) * RETURN_STAGGER + RETURN_DURATION + 80;
+const prefersReducedMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+const panelStyle = (area, order) => ({ gridArea: area, "--card-order": order, "--cell-enter-delay": `${ENTER_LEAD + order * CARD_STAGGER + 80}ms` });
+
+function TypedText({ text, delay = 0, duration = 360 }) {
+  const characters = Array.from(text);
+  return (
+    <span className="project-typing">
+      <span className="project-text-accessible">{text}</span>
+      <span aria-hidden="true">{characters.map((character, index) => (
+        <span key={index} className="project-typing-character" style={{ "--character-delay": `${delay + index / characters.length * duration}ms` }}>{character}</span>
+      ))}</span>
+    </span>
+  );
+}
+
+function ProjectImage({ image, className = "", loading = "lazy" }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) return <span className="project-image-error">This preview is unavailable. You can still explore the project through its links.</span>;
+  return <img className={className} src={image.src} alt={image.label} loading={loading} decoding="async" onError={() => setFailed(true)} />;
+}
+
+function SignTitle({ project }) {
+  return (
+    <span className={`sign-identity sign-identity-${project.id}`}>
+      {project.id === "parity" && <span className="sign-equals" aria-hidden="true"><i /><i /></span>}
+      {project.logo && <img className="sign-logo" src={`/assets/projects/${project.logo}`} alt="" width="48" height="48" loading="lazy" decoding="async" />}
+      <span className="sign-wordmark">{project.id === "caltris" ? <><span className="sign-title-accent">CAL</span>TRIS</> : project.displayTitle || project.title}</span>
+      {project.id === "lune" && <span className="sign-orbit" aria-hidden="true"><i /><i /><i /><i /><i /></span>}
+    </span>
+  );
+}
 
 export default function Projects() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [activeProject, setActiveProject] = useState(null);
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [activeId, setActiveId] = useState(null);
+  const [imageIndex, setImageIndex] = useState(0);
+  const [expanded, setExpanded] = useState(false);
+  const [previewId, setPreviewId] = useState(null);
+  const [transition, setTransition] = useState(null);
+  const isTransitioning = transition !== null;
+  const sectionRef = useRef(null);
+  const boardRef = useRef(null);
+  const headingRef = useRef(null);
+  const dialogRef = useRef(null);
+  const lastProject = useRef(null);
+  const navigated = useRef(false);
+  const previewTimer = useRef(null);
+  const transitionTimer = useRef(null);
+  const focusOnOpen = useRef(false);
+  const project = projects.find(({ id }) => id === activeId);
+  const image = project?.images[imageIndex];
 
-  const projects = [
-    {
-      id: 1,
-      title: "NMCG",
-      description:
-        "A web and mobile application for the Negros Mangrove Conservation Group to manage and monitor mangrove areas.",
-      images: [
-        "/assets/projects/nmcg.png",
-        "/assets/projects/nmcg2.png",
-        "/assets/projects/nmcg-3.png",
-      ],
-      github: "https://github.com/xyxyxyrex/negros-mangrove-conservation-app",
-      stack: [
-        { img: "/assets/icons/php.png", name: "PHP" },
-        { img: "/assets/icons/android.png", name: "Android" },
-      ],
-    },
-    {
-      id: 2,
-      title: "CET E-Bulletin Board",
-      description:
-        "A web-based bulletin board system for the College of Engineering and Technology to streamline announcements and event postings.",
-      images: [
-        "/assets/projects/cet.png",
-        "/assets/projects/cet-2.png",
-        "/assets/projects/cet-3.png",
-      ],
-      github: "https://github.com/xyxyxyrex/cet-e-bulletin-board",
-      stack: [{ img: "/assets/icons/php.png", name: "PHP" }],
-    },
-    {
-      id: 3,
-      title: "Memora-AI",
-      description:
-        "Learning Companion is a web application designed to help users study efficiently using PDFs, flashcards, quizzes, and gamified progress tracking.",
-      images: [
-        "/assets/projects/memora-1.png",
-        "/assets/projects/memora-2.png",
-        "/assets/projects/memora-3.png",
-        "/assets/projects/memora-4.png",
-      ],
-      github: "https://github.com/xyxyxyrex/memora",
-      stack: [
-        { img: "/assets/icons/react.png", name: "React" },
-        { img: "/assets/icons/python.png", name: "Python" },
-      ],
-    },
-    {
-      id: 4,
-      title: "CareFind",
-      description:
-        "A centralized platform to connect caregivers and families in need of care services, and a device for pill dispensing.",
-      images: [
-        "/assets/projects/carefind-1.jpg",
-        "/assets/projects/carefind-2.jpg",
-        "/assets/projects/carefind-3.jpg",
-        "/assets/projects/carefind-4.jpg",
-        "/assets/projects/carefind-5.jpg",
-        "/assets/projects/carefind-6.jpg",
-        "/assets/projects/carefind-7.png",
-        "/assets/projects/carefind-8.png",
-      ],
-      github: "https://github.com/xyxyxyrex/carefind-final",
-      stack: [
-        { img: "/assets/icons/android.png", name: "Android" },
-        { img: "/assets/icons/php.png", name: "PHP" },
-        { img: "/assets/icons/arduino.png", name: "Arduino" },
-      ],
-    },
-    {
-      id: 5,
-      title: "Tono",
-      description:
-        "Tono is a location-aware web application that lets users attach notes, threads, polls, quotes, and music to specific places while enabling others to respond and interpret the tone of each message in context.",
-      images: [
-        "/assets/projects/tono-1.png",
-        "/assets/projects/tono-2.png",
-        "/assets/projects/tono-3.png",
-      ],
-      github: "https://github.com/xyxyxyrex/wyd-wya",
-      stack: [{ img: "/assets/icons/python.png", name: "Python" }],
-    },
-    {
-      id: 6,
-      title: "Thriftly",
-      description:
-        "A web and mobile application that connects buyers and sellers of second-hand items for sustainable shopping.",
-      images: [
-        "/assets/projects/thriftly-1.png",
-        "/assets/projects/thriftly-2.png",
-        "/assets/projects/thriftly-3.png",
-        "/assets/projects/thriftly-4.png",
-        "/assets/projects/thriftly-5.png",
-        "/assets/projects/thriftly-6.png",
-        "/assets/projects/thriftly-7.png",
-        "/assets/projects/thriftly-8.png",
-        "/assets/projects/thriftly-9.png",
-      ],
-      github: "https://github.com/xyxyxyrex/Thriftlyapp",
-      stack: [
-        { img: "/assets/icons/android.png", name: "Android" },
-        { img: "/assets/icons/php.png", name: "PHP" },
-      ],
-    },
-  ];
+  useLayoutEffect(() => {
+    if (!navigated.current || (activeId && transition !== "exit" && !focusOnOpen.current)) return;
+    const target = activeId ? (isTransitioning ? boardRef.current : headingRef.current) : sectionRef.current?.querySelector(`[data-project="${lastProject.current}"]`);
+    target?.focus({ preventScroll: true });
+  }, [activeId, isTransitioning, transition]);
 
-  const openModal = (project) => {
-    setActiveProject(project);
-    setActiveImageIndex(0);
-    setModalOpen(true);
+  useEffect(() => () => {
+    clearTimeout(previewTimer.current);
+    clearTimeout(transitionTimer.current);
+  }, []);
+
+  useEffect(() => {
+    if (!transition) return;
+    // Safety completion if animation events are suppressed or motion preferences change.
+    transitionTimer.current = setTimeout(() => {
+      if (transition === "exit") setActiveId(null);
+      setTransition(null);
+    }, transition === "exit" ? EXIT_TIMEOUT : TRANSITION_TIMEOUT);
+    return () => clearTimeout(transitionTimer.current);
+  }, [transition]);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (expanded && !dialog.open) dialog.showModal();
+    if (!expanded && dialog.open) dialog.close();
+  }, [expanded]);
+
+  const cancelPreview = () => {
+    clearTimeout(previewTimer.current);
+    setPreviewId(null);
   };
-
-  const closeModal = () => {
-    setModalOpen(false);
-    setActiveProject(null);
-    setActiveImageIndex(0);
+  const openProject = (id, fromHover = false) => {
+    if (activeId) return;
+    cancelPreview();
+    navigated.current = true;
+    focusOnOpen.current = !fromHover;
+    lastProject.current = id;
+    setImageIndex(0);
+    setTransition(prefersReducedMotion() ? null : "enter");
+    setActiveId(id);
   };
-
-  const nextImage = () => {
-    if (activeProject) {
-      setActiveImageIndex((prev) =>
-        prev === activeProject.images.length - 1 ? 0 : prev + 1,
-      );
+  const closeProject = ({ restoreFocus = true } = {}) => {
+    cancelPreview();
+    if (!activeId) return;
+    navigated.current = restoreFocus;
+    if (transition === "exit") return;
+    clearTimeout(transitionTimer.current);
+    setExpanded(false);
+    if (prefersReducedMotion()) {
+      setTransition(null);
+      setActiveId(null);
+      return;
     }
-  };
-
-  const prevImage = () => {
-    if (activeProject) {
-      setActiveImageIndex((prev) =>
-        prev === 0 ? activeProject.images.length - 1 : prev - 1,
-      );
+    if (transition === "enter") {
+      // Read once before writing: interrupted slides reverse from their actual
+      // compositor positions without layout measurements or a per-frame loop.
+      const positions = Array.from(boardRef.current.querySelectorAll(".project-sign, .project-cell"), (card) => ({
+        card, transform: window.getComputedStyle(card).transform || "none",
+      }));
+      positions.forEach(({ card, transform }) => card.style.setProperty("--reverse-start", transform));
     }
+    setTransition("exit");
+  };
+  const finishTransition = (phase) => {
+    if (transition !== phase) return;
+    clearTimeout(transitionTimer.current);
+    if (phase === "exit") setActiveId(null);
+    setTransition(null);
+  };
+  const queuePreview = (id) => {
+    if (activeId) return;
+    clearTimeout(previewTimer.current);
+    setPreviewId(id);
+    // Animation completion normally opens the preview. Keep a fallback for
+    // disabled animations, with the exact hover delay for reduced motion.
+    previewTimer.current = setTimeout(() => openProject(id, true), PREVIEW_DELAY + (prefersReducedMotion() ? 0 : 100));
+  };
+  const moveImage = (step) => {
+    if (project) setImageIndex((current) => (current + step + project.images.length) % project.images.length);
   };
 
   return (
-    <>
-      <div className="w-full min-h-[100dvh] md:h-full flex flex-col items-center justify-start md:justify-center px-4 md:px-12 py-8 md:py-6 relative">
-        {/* Decorative elements with animations */}
-        <Float
-          delay={0}
-          className="hidden md:flex absolute top-8 left-12 flex-col gap-2 z-20 pointer-events-none"
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="flex gap-2 items-center"
-          >
-            <div className="w-4 h-4 bg-black"></div>
-            <div className="w-4 h-4 border-2 border-black"></div>
-            <div className="w-4 h-4 bg-gray-300"></div>
-          </motion.div>
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-            className="w-16 h-px bg-black origin-left"
-          />
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.4 }}
-            className="text-xs text-gray-400 tracking-widest"
-          >
-            003
-          </motion.span>
-        </Float>
+    <section className="code-projects" style={{ "--project-hover-duration": `${PREVIEW_DELAY}ms`, "--project-card-duration": `${CARD_DURATION}ms`, "--project-card-step": `${CARD_STAGGER}ms`, "--project-enter-lead": `${ENTER_LEAD}ms`, "--project-return-duration": `${RETURN_DURATION}ms`, "--project-return-step": `${RETURN_STAGGER}ms`, "--project-last-sign": projects.length - 1 }} ref={sectionRef} aria-labelledby="code-projects-title" onKeyDown={(event) => {
+      if (event.key === "Escape" && activeId && !expanded) {
+        event.preventDefault();
+        closeProject();
+      }
+    }}>
+      <header className="code-header">
+        <div className="code-section-label"><span>CODE / SELECTED WORK</span><span>{String(projects.length).padStart(2, "0")} PROJECTS</span></div>
+        <div className="code-title-row">
+          <h2 id="code-projects-title">&lt;/projects&gt;</h2>
+          {project ? <button type="button" className="code-back" onClick={() => closeProject()}><Icon name="arrow-left" size={17} /> All projects</button> : <p>A few things I’ve built.<br /><span>Hover to explore. Tap on mobile.</span></p>}
+        </div>
+      </header>
 
-        <Float
-          delay={0.2}
-          className="hidden md:flex absolute top-8 right-12 flex-col items-end gap-2 z-20 pointer-events-none"
-        >
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-            className="flex gap-1 origin-right"
-          >
-            <div className="w-8 h-1 bg-black"></div>
-            <div className="w-4 h-1 bg-gray-400"></div>
-          </motion.div>
-          <motion.div
-            initial={{ rotate: 0, opacity: 0 }}
-            animate={{ rotate: 45, opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.4 }}
-            className="w-5 h-5 border-2 border-black"
-          />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.5 }}
-            className="flex gap-1"
-          >
-            <div className="w-2 h-2 rounded-full bg-black"></div>
-            <div className="w-2 h-2 rounded-full bg-gray-400"></div>
-          </motion.div>
-        </Float>
-
-        <Float
-          delay={0.4}
-          className="hidden md:flex absolute bottom-8 left-12 flex-col gap-2 z-20 pointer-events-none"
-        >
-          <div className="flex gap-1">
-            <motion.div
-              initial={{ scaleY: 0 }}
-              animate={{ scaleY: 1 }}
-              transition={{ duration: 0.3, delay: 0.5 }}
-              className="w-1 h-8 bg-black origin-bottom"
-            />
-            <motion.div
-              initial={{ scaleY: 0 }}
-              animate={{ scaleY: 1 }}
-              transition={{ duration: 0.3, delay: 0.55 }}
-              className="w-1 h-5 bg-gray-400 origin-bottom"
-            />
-            <motion.div
-              initial={{ scaleY: 0 }}
-              animate={{ scaleY: 1 }}
-              transition={{ duration: 0.3, delay: 0.6 }}
-              className="w-1 h-10 bg-black origin-bottom"
-            />
-            <motion.div
-              initial={{ scaleY: 0 }}
-              animate={{ scaleY: 1 }}
-              transition={{ duration: 0.3, delay: 0.65 }}
-              className="w-1 h-6 bg-gray-300 origin-bottom"
-            />
-          </div>
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.7 }}
-            className="text-xs text-gray-400 tracking-widest"
-          >
-            PROJECTS
-          </motion.span>
-        </Float>
-
-        <Float
-          delay={0.6}
-          className="hidden md:flex absolute bottom-8 right-12 flex-col items-end gap-2 z-20 pointer-events-none"
-        >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="grid grid-cols-4 gap-0.5"
-          >
-            {[...Array(16)].map((_, i) => (
-              <div
-                key={i}
-                className={`w-1.5 h-1.5 ${
-                  i % 3 === 0 ? "bg-black" : "bg-gray-300"
-                }`}
-              ></div>
-            ))}
-          </motion.div>
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.3, delay: 0.7, type: "spring" }}
-            className="w-6 h-6 rounded-full border border-black flex items-center justify-center"
-          >
-            <div className="w-2 h-2 bg-black rounded-full"></div>
-          </motion.div>
-        </Float>
-
-        <FadeUp
-          delay={0.1}
-          className="w-full max-w-7xl mb-4 md:mb-6 mt-2 md:mt-0"
-        >
-          <h1 className="text-3xl md:text-6xl font-bold mb-1 mt-0 md:mb-2">
-            Code Projects
-          </h1>
-          <h2 className="text-sm md:text-lg text-gray-600">
-            This is a list of my work, both in Web and Mobile
-          </h2>
-        </FadeUp>
-
-        <StaggerContainer
-          staggerDelay={0.1}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full max-w-7xl pb-4 md:pb-0"
-        >
-          {/* card container */}
-          {projects.map((project, index) => (
-            <StaggerItem key={project.id}>
-              <motion.div
-                className="group relative bg-white rounded-xl overflow-hidden shadow-md flex flex-col"
-                whileHover={{
-                  y: -8,
-                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-                  transition: { duration: 0.3 },
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <div className="relative h-[180px] md:h-[160px] flex-shrink-0 overflow-hidden bg-gray-100">
-                  <motion.img
-                    src={project.images[0]}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.4 }}
-                    onError={(e) => {
-                      e.target.style.display = "none";
-                      e.target.parentElement.classList.add(
-                        "bg-gradient-to-br",
-                        "from-gray-200",
-                        "to-gray-300",
-                      );
-                    }}
-                  />
-
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                  <button
-                    onClick={() => openModal(project)}
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-2 px-5 py-2.5 bg-white/90 backdrop-blur-sm text-black rounded-full opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-white hover:scale-105 active:scale-95 shadow-lg z-10"
-                  >
-                    <i className="fa-solid fa-images text-base"></i>
-                    <span className="text-sm font-semibold">View Images</span>
-                  </button>
-
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute bottom-3 right-3 flex items-center gap-2 px-4 py-2 bg-black/80 backdrop-blur-sm text-white rounded-full opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 hover:bg-black hover:scale-105 active:scale-95 z-10"
-                  >
-                    <i className="fa-brands fa-github text-base"></i>
-                    <span className="text-sm font-medium">View in GitHub</span>
-                  </a>
-
-                  <div className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1 bg-black/60 backdrop-blur-sm text-white rounded-full text-xs">
-                    <i className="fa-solid fa-image"></i>
-                    <span>{project.images.length}</span>
-                  </div>
-                </div>
-
-                <div className="p-4 flex-1 flex flex-col">
-                  <div className="flex gap-1.5 mb-2">
-                    {project.stack?.map((tech, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: 0.1 * index, type: "spring" }}
-                        whileHover={{ scale: 1.2, rotate: 5 }}
-                        className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-100 shadow-sm overflow-hidden"
-                        title={tech.name}
-                      >
-                        <img
-                          src={tech.img}
-                          alt={tech.name}
-                          className="w-4 h-4 object-contain"
-                        />
-                      </motion.div>
-                    ))}
-                  </div>
-                  <h3 className="text-base font-bold mb-1">{project.title}</h3>
-                  <p className="text-gray-600 text-sm line-clamp-3 group-hover:line-clamp-none transition-all">
-                    {project.description}
-                  </p>
-                </div>
-              </motion.div>
-            </StaggerItem>
+      <div className="project-board-shell" ref={boardRef} role="group" aria-label="Project preview" aria-busy={isTransitioning} tabIndex={-1} onMouseLeave={(event) => {
+        cancelPreview();
+        if (activeId && !expanded) {
+          closeProject({ restoreFocus: event.currentTarget.contains(document.activeElement) });
+        }
+      }}>
+      {(!project || isTransitioning) && (
+        <div className={`project-board project-directory${transition === "enter" ? " is-leaving" : transition === "exit" ? " is-returning" : ""}`} aria-label="Project directory" aria-hidden={!!project} inert={!!project}>
+          {projects.map((item, index) => (
+            <div className="project-sign-slot" key={item.id} style={{ gridArea: item.id, "--card-order": index }}>
+            <button type="button" data-project={item.id} aria-label={`Open ${item.title}`} className={`project-sign project-sign-${item.id}${activeId === item.id ? " is-current" : ""}`} style={{ "--brand-bg": item.background, "--brand-fg": item.foreground, "--brand-accent": item.accent, "--brand-secondary": item.secondary }} onMouseEnter={() => queuePreview(item.id)} onMouseLeave={cancelPreview} onClick={() => openProject(item.id)} onAnimationEnd={(event) => {
+              if (index === 0 && event.target === event.currentTarget && event.animationName === "code-project-sign-return") finishTransition("exit");
+            }}>
+              {previewId === item.id && <span className="sign-hover-sweep" aria-hidden="true" onAnimationEnd={() => {
+                if (previewId === item.id) openProject(item.id, true);
+              }} />}
+              <span className="sign-meta"><span>{String(index + 1).padStart(2, "0")} / {item.category.split(" / ")[0]}</span><Icon name="arrow-up-right" size={18} /></span>
+              <SignTitle project={item} />
+              <span className="sign-footer"><span>{item.tagline}</span>{item.id === "parity" && <span className="sign-favorite">Personal favorite</span>}</span>
+            </button>
+            </div>
           ))}
-        </StaggerContainer>
-      </div>
-
-      {createPortal(
-        <AnimatePresence>
-          {modalOpen && activeProject && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-              onClick={closeModal}
-            >
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
-                animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
-                exit={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
-                transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="relative bg-white rounded-2xl overflow-hidden max-w-4xl w-full max-h-[80vh] md:max-h-[90vh] flex flex-col shadow-2xl"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <motion.div
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.1, duration: 0.3 }}
-                  className="flex items-center justify-between p-4 border-b"
-                >
-                  <div>
-                    <h3 className="text-xl font-bold">{activeProject.title}</h3>
-                    <p className="text-sm text-gray-500">
-                      {activeImageIndex + 1} of {activeProject.images.length}{" "}
-                      images
-                    </p>
-                  </div>
-                  <motion.button
-                    onClick={closeModal}
-                    whileHover={{ scale: 1.1, rotate: 90 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
-                  >
-                    <i className="fa-solid fa-xmark text-xl"></i>
-                  </motion.button>
-                </motion.div>
-
-                <div className="relative flex-1 bg-gray-100 flex items-center justify-center min-h-[250px] md:min-h-[400px]">
-                  <AnimatePresence mode="wait">
-                    <motion.img
-                      key={activeImageIndex}
-                      src={activeProject.images[activeImageIndex]}
-                      alt={`${activeProject.title} - Image ${
-                        activeImageIndex + 1
-                      }`}
-                      initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-                      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
-                      transition={{ duration: 0.4 }}
-                      className="max-w-full max-h-[250px] md:max-h-[400px] object-contain"
-                      onError={(e) => {
-                        e.target.src = "";
-                        e.target.alt = "Image not found";
-                        e.target.className = "hidden";
-                      }}
-                    />
-                  </AnimatePresence>
-
-                  {activeProject.images.length > 1 && (
-                    <>
-                      <motion.button
-                        onClick={prevImage}
-                        whileHover={{ scale: 1.1, x: -2 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-lg transition-all"
-                      >
-                        <i className="fa-solid fa-chevron-left text-lg"></i>
-                      </motion.button>
-                      <motion.button
-                        onClick={nextImage}
-                        whileHover={{ scale: 1.1, x: 2 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-lg transition-all"
-                      >
-                        <i className="fa-solid fa-chevron-right text-lg"></i>
-                      </motion.button>
-                    </>
-                  )}
-                </div>
-
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2, duration: 0.3 }}
-                  className="p-4 border-t bg-gray-50"
-                >
-                  <div className="flex gap-3 justify-center overflow-x-auto pb-2">
-                    {activeProject.images.map((image, index) => (
-                      <motion.button
-                        key={index}
-                        onClick={() => setActiveImageIndex(index)}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        className={`relative flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden transition-all duration-200 ${
-                          index === activeImageIndex
-                            ? "ring-2 ring-black ring-offset-2 scale-105"
-                            : "opacity-60 hover:opacity-100"
-                        }`}
-                      >
-                        <img
-                          src={image}
-                          alt={`Thumbnail ${index + 1}`}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.target.parentElement.classList.add("bg-gray-300");
-                            e.target.style.display = "none";
-                          }}
-                        />
-                      </motion.button>
-                    ))}
-                  </div>
-                </motion.div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>,
-        document.body,
+        </div>
       )}
-    </>
+      {project && (
+        <div key={project.id} className={`project-board project-detail${transition === "enter" ? " is-entering" : transition === "exit" ? " is-leaving" : ""}`} style={{ "--brand-bg": project.background, "--brand-fg": project.foreground, "--brand-accent": project.accent, "--brand-secondary": project.secondary }} aria-label={`${project.title} project details`} aria-hidden={isTransitioning} inert={isTransitioning}>
+          <div className="project-cell-slot" style={panelStyle("hero", 0)}>
+          <figure className={`project-cell project-main-media ${image.kind === "Artwork" ? "is-artwork" : ""}`}>
+            <button type="button" className="project-media-stage" aria-label={`Enlarge ${image.label}`} onClick={() => setExpanded(true)}>
+              <ProjectImage key={image.src} image={image} className="project-media-image" loading="eager" />
+              <span className="project-expand"><Icon name="expand" size={16} /></span>
+            </button>
+            <figcaption><span>{image.label}</span><span>{image.kind} / {String(imageIndex + 1).padStart(2, "0")}</span></figcaption>
+          </figure>
+          </div>
+
+          <div className="project-cell-slot" style={panelStyle("overview", 1)}>
+          <article className="project-cell project-overview">
+            <span className="project-cell-label"><TypedText text={project.category} duration={120} /></span>
+            <h3 ref={headingRef} tabIndex={-1}><TypedText text={project.title} delay={30} duration={140} /></h3>
+            {project.note && <p className="project-personal-note"><TypedText text={project.note} delay={90} duration={180} /></p>}
+            <p className="project-description"><TypedText text={project.description} delay={120} duration={400} /></p>
+            <ul className="project-features">{project.features.map((feature, index) => <li key={feature}><TypedText text={feature} delay={300 + index * 65} duration={180} /></li>)}</ul>
+          </article>
+          </div>
+
+          <div className="project-cell-slot" style={panelStyle("gallery", 2)}>
+          <div className="project-cell project-gallery">
+            <div className="project-cell-heading"><span className="project-cell-label">{project.images[0].kind === "Artwork" ? "Project artwork" : "A closer look"}</span><span className="project-cell-label">{String(imageIndex + 1).padStart(2, "0")} / {String(project.images.length).padStart(2, "0")}</span></div>
+            <div className="project-thumbnails" aria-label={`${project.title} previews`}>
+              {project.images.map((preview, index) => (
+                <button key={preview.src} type="button" className={`project-thumbnail ${preview.kind === "Artwork" ? "is-artwork" : ""}`} aria-label={`Show ${preview.label}`} aria-pressed={index === imageIndex} onMouseEnter={() => setImageIndex(index)} onFocus={() => setImageIndex(index)} onClick={() => setImageIndex(index)}>
+                  <ProjectImage image={preview} />
+                  <span>{String(index + 1).padStart(2, "0")} / {preview.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+          </div>
+
+          <div className="project-cell-slot" style={panelStyle("stack", 3)}>
+          <div className="project-cell project-stack"><span className="project-cell-label">Built with</span><ul>{project.stack.map((tech, index) => <li key={tech}><TypedText text={tech} delay={100 + index * 45} duration={160} /></li>)}</ul></div>
+          </div>
+          <div className="project-cell-slot" style={panelStyle("links", 4)}>
+          <div className="project-cell project-links" onAnimationEnd={(event) => {
+            if (event.target === event.currentTarget && event.animationName === "code-project-card-in") finishTransition("enter");
+          }}>
+            <span className="project-cell-label">Explore {project.title}</span>
+            {project.website && <a href={project.website} target="_blank" rel="noopener noreferrer">Visit website <Icon name="arrow-up-right" size={16} /></a>}
+            {project.releases && <a href={project.releases} target="_blank" rel="noopener noreferrer">Desktop releases <Icon name="arrow-up-right" size={16} /></a>}
+            {!project.privateSource && <a href={project.github} target="_blank" rel="noopener noreferrer">View on GitHub <Icon name="arrow-up-right" size={16} /></a>}
+            {project.privateSource && <span className="project-private-note">Application source is private.</span>}
+          </div>
+          </div>
+        </div>
+      )}
+      </div>
+      <footer className="code-footer"><span>{project ? "ESC TO RETURN / SELECT A PREVIEW TO EXPLORE" : "A PROJECT DIRECTORY / WEB, MOBILE & DESKTOP"}</span><span>{project ? project.title : "DESIGNED & BUILT BY XYREX"}</span></footer>
+
+      <dialog className="project-lightbox" ref={dialogRef} aria-label={`${project?.title || "Project"} image viewer`} onCancel={() => setExpanded(false)} onClose={() => setExpanded(false)} onClick={(event) => { if (event.target === event.currentTarget) setExpanded(false); }} onKeyDown={(event) => {
+        if (event.key === "ArrowRight") { event.preventDefault(); moveImage(1); }
+        if (event.key === "ArrowLeft") { event.preventDefault(); moveImage(-1); }
+      }}>
+        {image && <div className="project-lightbox-inner">
+          <div className="project-lightbox-toolbar"><span>{project.title} / {image.label}</span><button type="button" aria-label="Close image viewer" onClick={() => setExpanded(false)}><Icon name="close" size={22} /></button></div>
+          <div className={`project-lightbox-stage ${image.kind === "Artwork" ? "is-artwork" : ""}`}><ProjectImage key={image.src} image={image} loading="eager" /></div>
+          {project.images.length > 1 && <div className="project-lightbox-controls"><button type="button" onClick={() => moveImage(-1)} aria-label="Previous image"><Icon name="arrow-left" size={20} /></button><span>{imageIndex + 1} / {project.images.length}</span><button type="button" onClick={() => moveImage(1)} aria-label="Next image"><Icon name="arrow-right" size={20} /></button></div>}
+        </div>}
+      </dialog>
+    </section>
   );
 }

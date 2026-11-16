@@ -1,346 +1,161 @@
-import { motion } from "framer-motion";
-import {
-  FadeUp,
-  SlideIn,
-  ImageReveal,
-  StaggerContainer,
-  StaggerItem,
-  Float,
-} from "../Components/PageTransition";
+import { useState } from "react";
+import Icon from "../Components/Icon";
+import "./About.css";
+
+const disciplines = [
+  {
+    id: "development", label: "Development", number: "01", icon: "code",
+    headline: "Built with intention.",
+    description: "I bring ideas to life through web, mobile, and desktop development, with a toolkit that connects interfaces, systems, and hardware.",
+    tools: [
+      { name: "React", image: "react.png", description: "Building interactive, component-based interfaces for the web." },
+      { name: "Flutter", image: "flutter.webp", description: "Creating mobile interfaces and applications with a shared codebase." },
+      { name: "PHP", image: "php.png", description: "Connecting interfaces to server-side logic and application data." },
+      { name: "Python", image: "python.png", description: "Writing scripts, exploring ideas, and automating repetitive tasks." },
+      { name: "Android", image: "android.png", description: "Building applications and experiences for Android devices." },
+      { name: "Arduino", image: "arduino.png", description: "Bringing software into the physical world through hardware experiments." },
+      { name: "Rust", image: "rust.svg", description: "Working with Rust for systems-oriented development and native application logic." },
+      { name: "Electron", image: "electron.svg", description: "Bringing web interfaces to the desktop with Electron." },
+      { name: "Agentic Development", images: ["claude-code.svg", "codex.svg"], detail: "Claude Code / Codex", description: "Working with Claude Code and Codex to explore code, implement ideas, and iterate on software." },
+    ],
+  },
+  {
+    id: "design", label: "Design", number: "02", icon: "media",
+    headline: "Designed to feel right.",
+    description: "My background in multimedia shapes the way I work with layout, imagery, and visual identity, from an early concept to the final detail.",
+    tools: [
+      { name: "Figma", image: "figma.png", description: "Exploring interface layouts, visual systems, and interactive prototypes." },
+      { name: "Photoshop", image: "photoshop.png", description: "Editing images and creating layered compositions and visual artwork." },
+      { name: "Illustrator", image: "illustrator.png", description: "Creating vector artwork, graphic elements, and identity explorations." },
+      { name: "Canva", image: "canva.webp", description: "Putting together visual content and quick design explorations." },
+    ],
+  },
+  {
+    id: "motion", label: "Motion", number: "03", icon: "play",
+    headline: "Made to move.",
+    description: "I work with rhythm, pacing, and movement to turn footage and graphics into visual stories.",
+    tools: [
+      { name: "Premiere Pro", image: "premiere.png", description: "Shaping footage into stories through editing, pacing, and sound." },
+      { name: "After Effects", image: "aftereffects.png", description: "Adding motion to graphics and combining visual elements through compositing." },
+      { name: "TouchDesigner", image: "touchdesigner.ico", description: "Exploring real-time visuals, generative graphics, and interactive experiences." },
+      { name: "Hyperframes", image: "hyperframes.svg", description: "Creating motion graphics and video with HTML, CSS, and code." },
+    ],
+  },
+];
+
+const designLetters = [
+  { letter: "D", x: 8, y: 270, rotation: -12, alignedX: 0, width: 190 },
+  { letter: "E", x: 180, y: 180, rotation: 9, alignedX: 190, width: 165 },
+  { letter: "S", x: 345, y: 320, rotation: -7, alignedX: 355, width: 170 },
+  { letter: "I", x: 525, y: 190, rotation: 15, alignedX: 525, width: 95 },
+  { letter: "G", x: 625, y: 355, rotation: -11, alignedX: 620, width: 190 },
+  { letter: "N", x: 820, y: 260, rotation: 9, alignedX: 810, width: 190 },
+];
+
+function DisciplineTitle({ id }) {
+  return (
+    <span className={`about-column-name about-title-${id}`} aria-hidden="true">
+      {id === "development" ? (
+        <svg className="about-stylized-title about-code-title" viewBox="0 0 1000 400" focusable="false">
+          <text className="about-code-line about-code-line-first" x="0" y="160" textLength="860" lengthAdjust="spacingAndGlyphs"><tspan className="about-code-punctuation">{"</"}</tspan><tspan>devel</tspan></text>
+          <text className="about-code-line about-code-line-second" x="65" y="345" textLength="935" lengthAdjust="spacingAndGlyphs"><tspan>opment</tspan><tspan className="about-code-punctuation">{">"}</tspan></text>
+        </svg>
+      ) : id === "design" ? (
+        <svg className="about-stylized-title about-design-title" viewBox="0 0 1000 400" focusable="false">
+          {designLetters.map(({ letter, x, y, rotation, alignedX, width }, index) => (
+            <g key={letter} className="about-design-position" style={{ "--letter-index": index, "--scatter-x": `${x}px`, "--scatter-y": `${y}px`, "--aligned-x": `${alignedX}px`, "--rotation": `${rotation}deg` }}>
+              <text className="about-design-letter" textLength={width} lengthAdjust="spacingAndGlyphs">{letter}</text>
+            </g>
+          ))}
+          <g className="about-design-selection">
+            <rect className="about-selection-border" x="-10" y="150" width="1020" height="208" />
+            {[[ -10, 150 ], [ 500, 150 ], [ 1010, 150 ], [ -10, 254 ], [ 1010, 254 ], [ -10, 358 ], [ 500, 358 ], [ 1010, 358 ]].map(([x, y]) => (
+              <rect key={`${x}-${y}`} className="about-selection-handle" x={x - 6} y={y - 6} width="12" height="12" />
+            ))}
+          </g>
+        </svg>
+      ) : (
+        <svg className="about-stylized-title about-motion-title" viewBox="0 0 1000 400" focusable="false">
+          {[1, 2, 3, 4].map((echo) => (
+            <text key={echo} className="about-motion-outline" style={{ "--echo": echo }} x="0" y="387" textLength="1000" lengthAdjust="spacingAndGlyphs">MOTION</text>
+          ))}
+          <text className="about-motion-fill" x="0" y="387" textLength="1000" lengthAdjust="spacingAndGlyphs">MOTION</text>
+        </svg>
+      )}
+    </span>
+  );
+}
 
 export default function About() {
-  const logosRow1 = [
-    {
-      name: "React",
-      icon: (
-        <img
-          src="/assets/icons/react.png"
-          alt="React"
-          className="w-12 h-12 object-contain"
-        />
-      ),
-    },
-    {
-      name: "Flutter",
-      icon: (
-        <img
-          src="/assets/icons/flutter.webp"
-          alt="Flutter"
-          className="w-12 h-12 object-contain"
-        />
-      ),
-    },
-    {
-      name: "PHP",
-      icon: (
-        <img
-          src="/assets/icons/php.png"
-          alt="PHP"
-          className="w-12 h-12 object-contain"
-        />
-      ),
-    },
-    {
-      name: "Python",
-      icon: (
-        <img
-          src="/assets/icons/python.png"
-          alt="Python"
-          className="w-12 h-12 object-contain"
-        />
-      ),
-    },
-    {
-      name: "Android",
-      icon: (
-        <img
-          src="/assets/icons/android.png"
-          alt="Android"
-          className="w-12 h-12 object-contain"
-        />
-      ),
-    },
-    {
-      name: "Arduino",
-      icon: (
-        <img
-          src="/assets/icons/arduino.png"
-          alt="Arduino"
-          className="w-12 h-12 object-contain"
-        />
-      ),
-    },
-  ];
+  const [activeId, setActiveId] = useState(null);
+  const [activeTool, setActiveTool] = useState(null);
+  const activeDiscipline = disciplines.find(({ id }) => id === activeId);
+  const headline = activeTool?.name || activeDiscipline?.headline || "A little logic. A little imagination.";
+  const description = activeTool?.description || activeDiscipline?.description || "I started web development in 2021, with a background in multimedia arts. Today, my practice moves between building applications, designing visuals, and making things move.";
 
-  const logosRow2 = [
-    {
-      name: "Premiere Pro",
-      icon: (
-        <img
-          src="/assets/icons/premiere.png"
-          alt="Premiere Pro"
-          className="w-12 h-12 object-contain"
-        />
-      ),
-    },
-    {
-      name: "Photoshop",
-      icon: (
-        <img
-          src="/assets/icons/photoshop.png"
-          alt="Photoshop"
-          className="w-12 h-12 object-contain"
-        />
-      ),
-    },
-    {
-      name: "Illustrator",
-      icon: (
-        <img
-          src="/assets/icons/illustrator.png"
-          alt="Illustrator"
-          className="w-12 h-12 object-contain"
-        />
-      ),
-    },
-    {
-      name: "After Effects",
-      icon: (
-        <img
-          src="/assets/icons/aftereffects.png"
-          alt="After Effects"
-          className="w-12 h-12 object-contain"
-        />
-      ),
-    },
-  ];
-
-  const logosRow3 = [
-    {
-      name: "Figma",
-      icon: (
-        <img
-          src="/assets/icons/figma.png"
-          alt="Figma"
-          className="w-12 h-12 object-contain"
-        />
-      ),
-    },
-    {
-      name: "Canva",
-      icon: (
-        <img
-          src="/assets/icons/canva.webp"
-          alt="Canva"
-          className="w-12 h-12 object-contain"
-        />
-      ),
-    },
-  ];
-
-  const LogoRow = ({ logos, staggerDelay = 0 }) => {
-    return (
-      <StaggerContainer
-        staggerDelay={0.08}
-        className="flex flex-wrap gap-3 md:gap-8 justify-center w-full"
-      >
-        {logos.map((logo, index) => (
-          <StaggerItem key={index}>
-            <motion.div
-              className="flex flex-col items-center justify-center"
-              whileHover={{ scale: 1.15, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            >
-              <div className="w-10 h-10 md:w-20 md:h-20 flex items-center justify-center">
-                {logo.icon}
-              </div>
-              <span className="text-xs md:text-sm text-black mt-1 md:mt-2 whitespace-nowrap">
-                {logo.name}
-              </span>
-            </motion.div>
-          </StaggerItem>
-        ))}
-      </StaggerContainer>
-    );
+  const activate = (id) => {
+    setActiveId(id);
+    setActiveTool(null);
+  };
+  const deactivate = () => {
+    setActiveId(null);
+    setActiveTool(null);
   };
 
   return (
-    <div className="w-full md:w-3/4 min-h-[100dvh] md:min-h-0 md:h-full flex flex-col md:flex-row relative py-4 md:py-0">
-      {/* Decorative elements with animations */}
-      <Float
-        delay={0.2}
-        className="hidden md:flex absolute top-8 right-0 flex-col items-end gap-3 z-20 pointer-events-none"
-      >
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex gap-2 items-center"
-        >
-          <span className="text-xs text-gray-400 tracking-widest">002</span>
-          <div className="w-4 h-4 border-2 border-black"></div>
-        </motion.div>
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.4, delay: 0.4 }}
-          className="flex gap-1 origin-right"
-        >
-          <div className="w-6 h-1 bg-black"></div>
-          <div className="w-3 h-1 bg-gray-300"></div>
-        </motion.div>
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.5, type: "spring" }}
-          className="w-6 h-6 rounded-full border border-black"
-        />
-      </Float>
+    <section className={`about-triptych ${activeId ? "has-selection" : ""}`} aria-labelledby="about-title" onKeyDown={(event) => {
+      if (event.key === "Escape") {
+        const trigger = event.currentTarget.querySelector(`[data-discipline="${activeId}"]`);
+        trigger?.focus();
+        deactivate();
+      }
+    }}>
+      <header className="about-header">
+        <span className="about-eyebrow">ABOUT / MY PRACTICE</span>
+        <h2 id="about-title">Three ways I create.</h2>
+        <span className="about-hint"><span className="about-hover-hint">Hover to explore</span><span className="about-tap-hint">Tap to explore</span><Icon name="arrow-down" size={14} /></span>
+      </header>
 
-      <Float
-        delay={0.4}
-        className="hidden md:flex absolute bottom-8 left-0 flex-col gap-2 z-20 pointer-events-none"
-      >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4, delay: 0.5 }}
-          className="flex gap-2"
-        >
-          <div className="w-3 h-3 bg-black"></div>
-          <div className="w-3 h-3 bg-gray-400"></div>
-          <div className="w-3 h-3 border border-black"></div>
-        </motion.div>
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="w-20 h-px bg-gradient-to-r from-black to-transparent origin-left"
-        />
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.7 }}
-          className="text-xs text-gray-400 tracking-widest"
-        >
-          ABOUT
-        </motion.span>
-      </Float>
-
-      <Float
-        delay={0.6}
-        className="hidden md:flex absolute bottom-8 right-0 flex-col items-end gap-2 z-20 pointer-events-none"
-      >
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.7, staggerChildren: 0.05 }}
-          className="grid grid-cols-3 gap-1"
-        >
-          <div className="w-2 h-2 bg-black"></div>
-          <div className="w-2 h-2 bg-gray-300"></div>
-          <div className="w-2 h-2 bg-black"></div>
-          <div className="w-2 h-2 bg-gray-300"></div>
-          <div className="w-2 h-2 bg-black"></div>
-          <div className="w-2 h-2 bg-gray-300"></div>
-        </motion.div>
-        <div className="flex gap-1">
-          <motion.div
-            initial={{ scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{ duration: 0.3, delay: 0.8 }}
-            className="w-1 h-4 bg-black origin-bottom"
-          />
-          <motion.div
-            initial={{ scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{ duration: 0.3, delay: 0.85 }}
-            className="w-1 h-6 bg-gray-400 origin-bottom"
-          />
-          <motion.div
-            initial={{ scaleY: 0 }}
-            animate={{ scaleY: 1 }}
-            transition={{ duration: 0.3, delay: 0.9 }}
-            className="w-1 h-3 bg-black origin-bottom"
-          />
-        </div>
-      </Float>
-
-      {/* Profile Image */}
-      <SlideIn
-        direction="left"
-        delay={0.1}
-        className="w-full md:w-1/2 h-auto md:rounded-full md:h-full flex items-center justify-center p-4 md:p-8 flex-shrink-0"
-      >
-        <ImageReveal
-          delay={0.2}
-          className="w-96 h-96 md:w-80 md:h-full rounded-full md:rounded-full overflow-hidden shadow-2xl"
-        >
-          <motion.img
-            src="/assets/myImage.png"
-            alt="Profile"
-            className="w-full h-full object-cover rounded-full md:rounded-full object-[center_15%]"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.4 }}
-            onError={(e) => {
-              e.target.style.display = "none";
-              e.target.parentElement.innerHTML =
-                '<div class="w-full h-full flex items-center justify-center text-gray-400 text-lg">Your Image</div>';
-            }}
-          />
-        </ImageReveal>
-      </SlideIn>
-
-      {/* Content */}
-      <SlideIn
-        direction="right"
-        delay={0.2}
-        className="w-full md:w-3/4 flex-1 flex flex-col justify-center p-4 md:p-8"
-      >
-        <div className="mb-4 md:mb-12">
-          <div className="mb-2 md:mb-6">
-            <div className="text-left mb-4 md:mb-12">
-              <FadeUp delay={0.3}>
-                <h1 className="text-2xl md:text-8xl font-bold mb-2 md:mb-6">
-                  A Developer—
-                </h1>
-              </FadeUp>
-              <div className="flex items-center justify-between">
-                <FadeUp delay={0.4}>
-                  <h1 className="text-2xl md:text-8xl font-bold">
-                    and an Editor
-                  </h1>
-                </FadeUp>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: 0.5, type: "spring" }}
-                  className="hidden md:flex gap-2"
-                >
-                  <span>■</span>
-                </motion.div>
-              </div>
+      <div className="about-columns">
+        {disciplines.map((discipline) => {
+          const isActive = activeId === discipline.id;
+          return (
+            <div key={discipline.id} className={`about-column ${isActive ? "is-active" : ""}`} onMouseEnter={() => activate(discipline.id)} onMouseLeave={(event) => {
+              if (!event.currentTarget.contains(document.activeElement)) deactivate();
+            }} onFocus={() => setActiveId(discipline.id)} onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) deactivate();
+            }}>
+              <button type="button" className="about-column-trigger" data-discipline={discipline.id} aria-label={discipline.label} aria-expanded={isActive} aria-controls={`tools-${discipline.id}`} onClick={() => activate(discipline.id)}>
+                <span className="about-column-meta"><span>{discipline.number}</span><Icon name={discipline.icon} size={20} /></span>
+                <DisciplineTitle id={discipline.id} />
+              </button>
+              <ul id={`tools-${discipline.id}`} aria-label={`${discipline.label} tools`} aria-hidden={!isActive} inert={!isActive} className={`about-tools about-tools-${discipline.id}`}>
+                {discipline.tools.map((tool) => (
+                  <li key={tool.name}>
+                    <button type="button" className={`about-tool ${activeTool?.name === tool.name && isActive ? "is-selected" : ""}`} tabIndex={isActive ? 0 : -1} aria-label={tool.detail ? `${tool.name}: ${tool.detail}` : tool.name} onMouseEnter={() => setActiveTool(tool)} onMouseLeave={(event) => {
+                      if (document.activeElement !== event.currentTarget) setActiveTool(null);
+                    }} onFocus={() => setActiveTool(tool)} onBlur={() => setActiveTool(null)} onClick={() => setActiveTool(tool)}>
+                      <span className={`about-tool-mark ${tool.images ? "about-tool-mark-pair" : ""}`} aria-hidden="true">
+                        {(tool.images || [tool.image]).map((image) => <img key={image} src={`/assets/icons/${image}`} alt="" width="30" height="30" loading="lazy" />)}
+                      </span>
+                      <span className="about-tool-name">{tool.name}</span>
+                      {tool.detail && <span className="about-tool-detail">{tool.detail}</span>}
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
+          );
+        })}
+      </div>
 
-          <FadeUp delay={0.5}>
-            <p className="text-xs md:text-lg text-gray-700 leading-relaxed">
-              Hello! I started web development back in 2021, driven by my
-              background in multimedia arts. Over the years, I've honed my
-              skills in both front-end and back-end technologies, as well as
-              engaging in Mobile Application Development, allowing me to create
-              dynamic and responsive web applications.
-            </p>
-          </FadeUp>
+      <div className="about-caption" role="status" aria-live="polite" aria-atomic="true">
+        <span className="about-caption-label">{activeDiscipline ? `${activeDiscipline.number} / ${activeDiscipline.label}` : "THE PERSON BEHIND THE WORK"}</span>
+        <div className="about-caption-copy" key={`${activeId}-${activeTool?.name || "intro"}`}>
+          <h3>{headline}</h3>
+          <p>{description}</p>
         </div>
-
-        <div className="space-y-2 md:space-y-4">
-          <LogoRow logos={logosRow1} staggerDelay={0} />
-          <LogoRow logos={logosRow2} staggerDelay={0.1} />
-          <LogoRow logos={logosRow3} staggerDelay={0.2} />
-        </div>
-      </SlideIn>
-    </div>
+      </div>
+    </section>
   );
 }
