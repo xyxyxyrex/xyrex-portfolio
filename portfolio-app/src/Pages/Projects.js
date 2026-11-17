@@ -186,7 +186,7 @@ export default function Projects() {
       {project && (
         <div key={project.id} className={`project-board project-detail${transition === "enter" ? " is-entering" : transition === "exit" ? " is-leaving" : ""}`} style={{ "--brand-bg": project.background, "--brand-fg": project.foreground, "--brand-accent": project.accent, "--brand-secondary": project.secondary }} aria-label={`${project.title} project details`} aria-hidden={isTransitioning} inert={isTransitioning}>
           <div className="project-cell-slot" style={panelStyle("hero", 0)}>
-          <figure className={`project-cell project-main-media ${image.kind === "Artwork" ? "is-artwork" : ""}`}>
+          <figure className={`project-cell project-main-media ${image.kind === "Artwork" ? "is-artwork" : image.kind === "Render" ? "is-render" : ""}`}>
             <button type="button" className="project-media-stage" aria-label={`Enlarge ${image.label}`} onClick={() => setExpanded(true)}>
               <ProjectImage key={image.src} image={image} className="project-media-image" loading="eager" />
               <span className="project-expand"><Icon name="expand" size={16} /></span>
@@ -210,7 +210,7 @@ export default function Projects() {
             <div className="project-cell-heading"><span className="project-cell-label">{project.images[0].kind === "Artwork" ? "Project artwork" : "A closer look"}</span><span className="project-cell-label">{String(imageIndex + 1).padStart(2, "0")} / {String(project.images.length).padStart(2, "0")}</span></div>
             <div className="project-thumbnails" aria-label={`${project.title} previews`}>
               {project.images.map((preview, index) => (
-                <button key={preview.src} type="button" className={`project-thumbnail ${preview.kind === "Artwork" ? "is-artwork" : ""}`} aria-label={`Show ${preview.label}`} aria-pressed={index === imageIndex} onMouseEnter={() => setImageIndex(index)} onFocus={() => setImageIndex(index)} onClick={() => setImageIndex(index)}>
+                <button key={preview.src} type="button" className={`project-thumbnail ${preview.kind === "Artwork" ? "is-artwork" : preview.kind === "Render" ? "is-render" : ""}`} aria-label={`Show ${preview.label}`} aria-pressed={index === imageIndex} onMouseEnter={() => setImageIndex(index)} onFocus={() => setImageIndex(index)} onClick={() => setImageIndex(index)}>
                   <ProjectImage image={preview} />
                   <span>{String(index + 1).padStart(2, "0")} / {preview.label}</span>
                 </button>

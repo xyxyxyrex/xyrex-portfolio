@@ -231,6 +231,25 @@ test("every project has working details, a preview, and a path back", () => {
   });
 });
 
+test("Cléa uses its scribble mark and original renders while keeping its source private", () => {
+  const { container } = render(<Projects />);
+  const sign = screen.getByRole("button", { name: "Open Cléa" });
+  expect(sign.querySelector(".sign-logo")).toHaveAttribute("src", "/assets/projects/clea/clea-mark-light.svg");
+  openAndFinish("Cléa");
+  expect(screen.getByRole("heading", { name: "Cléa" })).toBeInTheDocument();
+  expect(screen.getByText("Tone.js")).toBeInTheDocument();
+  expect(screen.getByText("PixiJS")).toBeInTheDocument();
+  expect(screen.getByText("Application source is private.")).toBeInTheDocument();
+  expect(screen.queryByRole("link", { name: /View on GitHub/ })).not.toBeInTheDocument();
+  expect(container.querySelector(".project-main-media")).toHaveClass("is-render");
+  expect(within(screen.getByRole("button", { name: "Enlarge Figure — offline render" })).getByRole("img")).toHaveAttribute("src", "/assets/projects/clea/figure.webp");
+  fireEvent.mouseEnter(screen.getByRole("button", { name: "Show Orbit — MIDI render" }));
+  expect(screen.getByRole("button", { name: "Enlarge Orbit — MIDI render" })).toBeInTheDocument();
+  fireEvent.click(screen.getByRole("button", { name: "All projects" }));
+  finishExit();
+  expect(screen.getByRole("button", { name: "Open Cléa" })).toHaveFocus();
+});
+
 test("opens the image viewer and supports gallery navigation without leaving details", () => {
   const { container } = render(<Projects />);
   openAndFinish("Parity");
