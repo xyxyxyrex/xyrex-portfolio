@@ -51,7 +51,7 @@ export const projects = [
     description: "An audio and MIDI visualizer that turns local tracks into abstract compositions. Includes 60 selectable looks, seeded variations, and SVG print export, with audio and image files kept on your device.",
     stack: ["React", "TypeScript", "Tone.js", "PixiJS", "Meyda"],
     features: ["60 visual looks and composed layouts", "Local audio, MIDI, and image inputs", "Seeded variations and SVG print export"],
-    github: "https://github.com/xyxyxyrex/clea", privateSource: true, logo: "clea/clea-mark-light.svg",
+    github: "https://github.com/xyxyxyrex/clea", privateSource: true, website: "https://clea-visualizer.vercel.app", logo: "clea/clea-mark-light.svg",
     background: "#11120f", foreground: "#d0d2c5", accent: "#e86a3b", secondary: "#9aa58e", dark: true,
     images: [shot("clea/figure.webp", "Figure — offline render", "Render"), shot("clea/form.webp", "Form — offline render", "Render"), shot("clea/stipple.webp", "Stipple — offline render", "Render"), shot("clea/orbit.webp", "Orbit — MIDI render", "Render")],
   },
