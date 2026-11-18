@@ -12,6 +12,14 @@ const links = [
   { id: "contact", label: "Contact", icon: "contact" },
 ];
 
+// Match the server and first client pass, then enhance the usable dock.
+function DockGlass({ children }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+  if (!mounted) return <div className="dock-glass dock-glass-static"><div className="glass">{children}</div></div>;
+  return <LiquidGlass className="dock-glass" cornerRadius={18} padding="6px" displacementScale={12} blurAmount={0.24} saturation={0} aberrationIntensity={0} elasticity={0} mode="standard" style={{ position: "absolute", top: "50%", left: "50%" }}>{children}</LiquidGlass>;
+}
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [active, setActive] = useState("home");
@@ -46,9 +54,9 @@ export default function Navbar() {
   }, []);
   return (
     <nav aria-label="Main navigation" className={`portfolio-dock ${isScrolled ? "is-compact" : ""}`}>
-      <motion.div className="dock-enter" initial={reduceMotion ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}>
+      <motion.div className="dock-enter" initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}>
         <div className="dock-surface">
-        <LiquidGlass className="dock-glass" cornerRadius={18} padding="6px" displacementScale={12} blurAmount={0.24} saturation={0} aberrationIntensity={0} elasticity={0} mode="standard" style={{ position: "absolute", top: "50%", left: "50%" }}>
+        <DockGlass>
           <ul className="dock-links">
             {links.map((link, index) => (
               <li key={link.id}>
@@ -66,7 +74,7 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-        </LiquidGlass>
+        </DockGlass>
         </div>
       </motion.div>
     </nav>

@@ -45,12 +45,12 @@ export function PageTransition({ children, className = "" }) {
 // Fade up animation for individual elements
 export function FadeUp({ children, delay = 0, className = "" }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.3 });
+  const isInView = useInView(ref, { once: false, amount: 0.3, initial: true });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+      initial={false}
       animate={
         isInView
           ? { opacity: 1, y: 0, filter: "blur(0px)" }
@@ -102,14 +102,14 @@ export function SlideIn({
   className = "",
 }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.3 });
+  const isInView = useInView(ref, { once: false, amount: 0.3, initial: true });
 
   const xOffset = direction === "left" ? -60 : 60;
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: xOffset, filter: "blur(12px)" }}
+      initial={false}
       animate={
         isInView
           ? { opacity: 1, x: 0, filter: "blur(0px)" }
@@ -270,24 +270,7 @@ export function ImageReveal({ children, delay = 0, className = "" }) {
   );
 }
 
-// Smooth section wrapper with parallax-like effect
+// Sections stay readable before JavaScript; individual elements own their motion.
 export function SectionWrapper({ children, className = "" }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: false,
-    amount: 0.1,
-    margin: "-5% 0px",
-  });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0 }}
-      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={className}>{children}</div>;
 }

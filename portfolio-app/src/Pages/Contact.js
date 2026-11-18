@@ -135,9 +135,9 @@ export default function Contact() {
             className="flex-1 flex flex-col justify-center"
           >
             <FadeUp delay={0.2}>
-              <h1 className="text-4xl md:text-6xl font-bold mb-2 md:mb-4">
+              <h2 className="text-4xl md:text-6xl font-bold mb-2 md:mb-4">
                 Let's Talk
-              </h1>
+              </h2>
             </FadeUp>
             <FadeUp delay={0.3}>
               <p className="text-base md:text-xl text-gray-600 mb-6 md:mb-8">

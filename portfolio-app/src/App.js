@@ -54,6 +54,8 @@ export default function App() {
         }
       `}</style>
       <Navbar />
+      <a className="skip-link" href="#main-content">Skip to content</a>
+      <main id="main-content" tabIndex={-1}>
       <AnimatePresence>
         {sections.map((section, index) => (
           <SectionWrapper key={index} className="section-container">
@@ -74,6 +76,7 @@ export default function App() {
           </SectionWrapper>
         ))}
       </AnimatePresence>
+      </main>
     </div>
   );
 }

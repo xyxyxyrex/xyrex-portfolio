@@ -1,11 +1,11 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Icon from "../Components/Icon";
 import "./Home.css";
 
 export default function Home() {
-  const reduceMotion = useReducedMotion();
   const reveal = (delay = 0) => ({
-    initial: reduceMotion ? false : { opacity: 0, y: 24 },
+    // Keep the first paint visible, including the pre-rendered page.
+    initial: false,
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.85, delay, ease: [0.22, 1, 0.36, 1] },
   });
@@ -17,10 +17,9 @@ export default function Home() {
         <a className="hero-resume" href="/assets/files/new-resume.pdf" download><span>Resume</span><Icon name="download" size={16} /></a>
       </header>
       <motion.div className="hero-intro" {...reveal(0.1)}>
-        <span className="hero-eyebrow"><span className="hero-dot" /> THE PORTFOLIO OF</span>
-        <p>Xyrex Kyle Salazar</p>
+        <span className="hero-eyebrow"><span className="hero-dot" /> WEB DEVELOPER &amp; CREATIVE</span>
+        <h1 id="hero-title">Xyrex Kyle Salazar</h1>
       </motion.div>
-      <h1 id="hero-title" className="sr-only">Xyrex Kyle Salazar — Developer &amp; Creative</h1>
       <motion.div className="hero-type hero-type-back" aria-hidden="true" {...reveal(0.2)}>DEVELOPER</motion.div>
       <motion.div className="hero-side hero-side-left" {...reveal(0.4)}>
         <span className="hero-small-label">A MIND FOR BOTH</span>
@@ -28,7 +27,7 @@ export default function Home() {
         <a href="#projects" className="hero-work-link">Explore my work <Icon name="arrow-up-right" size={17} /></a>
       </motion.div>
       <motion.div className="hero-portrait" {...reveal(0.25)}>
-        <img src="/assets/hero-cutout-halftone.png" alt="Halftone portrait of Xyrex Kyle Salazar wearing a black shirt and blazer, with a warm gray outline" width="1098" height="1433" fetchPriority="high" decoding="async" />
+        <img src="/assets/hero-cutout-halftone-1100.webp" srcSet="/assets/hero-cutout-halftone-550.webp 550w, /assets/hero-cutout-halftone-1100.webp 1098w" sizes="(max-width: 700px) 115vw, (max-width: 1000px) 54vw, (max-width: 1420px) 43vw, 610px" alt="Halftone portrait of Xyrex Kyle Salazar wearing a black shirt and blazer, with a warm gray outline" width="1098" height="1433" fetchPriority="high" decoding="async" />
       </motion.div>
       <motion.div className="hero-side hero-side-right" {...reveal(0.5)}>
         <span className="hero-small-label">BASED IN</span>

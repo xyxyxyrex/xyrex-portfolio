@@ -17,6 +17,9 @@ body {
   overflow-x: hidden;
 }
 
+.skip-link { position: fixed; top: 12px; left: 12px; z-index: 200; padding: 12px 16px; background: #242522; color: #eeede8; border-radius: 6px; transform: translateY(-150%); font-size: 14px; }
+.skip-link:focus { transform: translateY(0); }
+
 /* Mobile viewport fix for browser chrome */
 @supports (height: 100dvh) {
   :root {
@@ -59,11 +62,6 @@ code {
   ::-webkit-scrollbar-thumb:hover {
     background: rgba(0, 0, 0, 0.4);
   }
-}
-
-/* Section container animations */
-.section-container {
-  will-change: opacity, transform, filter;
 }
 
 /* Smooth page transitions */

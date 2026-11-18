@@ -30,7 +30,7 @@
 .hero-intro { position: absolute; z-index: 1; top: 17%; width: 100%; text-align: center; }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 9px; font-weight: 500; letter-spacing: 2px; }
 .hero-dot { width: 5px; height: 5px; background: #7c876e; border-radius: 50%; }
-.hero-intro p { margin: 10px 0 0; font-size: clamp(17px, 1.65vw, 24px); font-weight: 450; letter-spacing: -0.7px; }
+.hero-intro h1 { margin: 10px 0 0; font-size: clamp(17px, 1.65vw, 24px); font-weight: 450; letter-spacing: -0.7px; }
 .hero-type { position: absolute; left: 0; width: 100%; text-align: center; white-space: nowrap; font-weight: 850; font-size: clamp(70px, 12.4vw, 220px); line-height: 0.88; letter-spacing: -0.075em; pointer-events: none; }
 .hero-type-back { z-index: 1; top: 35%; padding-right: 0.065em; }
 .hero-portrait { position: absolute; z-index: 2; bottom: -4px; left: 50%; width: min(43vw, 610px); height: 75%; margin-left: max(-21.5vw, -305px); pointer-events: none; }
@@ -62,7 +62,7 @@
   .hero-monogram { font-size: 33px; }
   .hero-intro { top: 18%; }
   .hero-eyebrow { font-size: 8px; letter-spacing: 1.6px; }
-  .hero-intro p { margin-top: 9px; font-size: 20px; }
+  .hero-intro h1 { margin-top: 9px; font-size: 20px; }
   .hero-type-back { top: max(37%, calc(100% - 150vw + 24px)); font-size: 12.8vw; }
   .hero-portrait { height: 66%; width: 115vw; margin-left: -57.5vw; }
   .hero-side { top: 27%; }

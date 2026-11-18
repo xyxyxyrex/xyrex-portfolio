@@ -91,7 +91,7 @@ export default function About() {
   const [activeTool, setActiveTool] = useState(null);
   const activeDiscipline = disciplines.find(({ id }) => id === activeId);
   const headline = activeTool?.name || activeDiscipline?.headline || "A little logic. A little imagination.";
-  const description = activeTool?.description || activeDiscipline?.description || "I started web development in 2021, with a background in multimedia arts. Today, my practice moves between building applications, designing visuals, and making things move.";
+  const description = activeTool?.description || activeDiscipline?.description || "I’m Xyrex Kyle Salazar, a web developer and creative based in Bacolod, Philippines. I started web development in 2021 with a background in multimedia arts. As Xyrex Dev, I build web and desktop applications, design visuals, and make things move.";
 
   const activate = (id) => {
     setActiveId(id);

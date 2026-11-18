@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#eae9e4"/>
+  <path d="M56 105h1088M56 524h1088" stroke="#242522" stroke-opacity=".22"/>
+  <g transform="translate(56 30) scale(.8)"><rect width="64" height="64" rx="14" fill="#242522"/><g fill="none" stroke="#eeede8" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 24l15 19m0-19L13 43M36 24l8 17m8-17L40 51"/></g></g>
+  <g font-family="SF Pro Display" fill="#242522">
+    <text x="1144" y="66" text-anchor="end" font-size="18" letter-spacing="2">THE PORTFOLIO OF XYREX KYLE SALAZAR</text>
+    <text x="49" y="345" font-size="220" font-weight="700" letter-spacing="-12">Xyrex.</text>
+    <text x="60" y="415" font-size="32" letter-spacing="4">WEB DEVELOPER &amp; CREATIVE</text>
+    <text x="60" y="476" font-size="23" fill="#62645b">Web apps. Desktop tools. Visual design.</text>
+    <text x="60" y="576" font-size="18" fill="#62645b">BACOLOD, PHILIPPINES</text>
+    <text x="1144" y="576" text-anchor="end" font-size="18">xyrex-portfolio.vercel.app ↗</text>
+  </g>
+  <g transform="translate(999 238)" stroke="#7c876e" stroke-width="10"><path d="M0 0h100M0 0v100M0 0l100 100" fill="none" transform="translate(100 0) rotate(90)"/></g>
+</svg>

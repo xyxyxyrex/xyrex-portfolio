@@ -1,5 +1,6 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import App from './App';
+import { hydrateRoot } from 'react-dom/client';
 
 beforeAll(() => {
   window.matchMedia = () => ({
@@ -15,8 +16,10 @@ beforeAll(() => {
 
 test('renders the portrait hero and all five accessible icon destinations', () => {
   render(<App />);
-  expect(screen.getByRole('heading', { name: /Xyrex Kyle Salazar — Developer & Creative/i })).toBeInTheDocument();
-  expect(screen.getByAltText(/Xyrex Kyle Salazar wearing/)).toHaveAttribute('src', '/assets/hero-cutout-halftone.png');
+  expect(screen.getByRole('heading', { level: 1, name: 'Xyrex Kyle Salazar' })).toBeInTheDocument();
+  expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+  expect(screen.getByRole('main')).toContainElement(screen.getByRole('heading', { name: 'Design Projects' }));
+  expect(screen.getByAltText(/Xyrex Kyle Salazar wearing/)).toHaveAttribute('src', '/assets/hero-cutout-halftone-1100.webp');
   const nav = screen.getByRole('navigation', { name: 'Main navigation' });
   ['Home', 'About', 'Code', 'Media', 'Contact'].forEach((label, index) => {
     expect(within(nav).getByRole('link', { name: label })).toHaveAttribute('href', `#${['home', 'about', 'projects', 'skills', 'contact'][index]}`);
@@ -49,4 +52,30 @@ test('navigates to a section and contracts the dock as its scroll container move
   expect(nav).not.toHaveClass('is-compact');
   expect(within(nav).getByRole('link', { name: 'Home' })).toHaveAttribute('aria-current', 'location');
   jest.useRealTimers();
+});
+
+test('hydrates the pre-rendered portfolio without replacing its content and attaches navigation', async () => {
+  const { renderToString } = require('react-dom/server.node');
+  const host = document.createElement('div');
+  document.body.appendChild(host);
+  host.innerHTML = renderToString(<App />);
+  const originalHeading = host.querySelector('h1');
+  const originalPortrait = host.querySelector('.hero-portrait img');
+  const recoverableErrors = [];
+  let root;
+  try {
+    await act(async () => {
+      root = hydrateRoot(host, <App />, { onRecoverableError: (error) => recoverableErrors.push(error) });
+    });
+    expect(recoverableErrors).toEqual([]);
+    expect(host.querySelector('h1')).toBe(originalHeading);
+    expect(host.querySelector('.hero-portrait img')).toBe(originalPortrait);
+    const projects = host.querySelector('#projects');
+    projects.scrollIntoView = jest.fn();
+    fireEvent.click(within(host.querySelector('nav')).getByRole('link', { name: 'Code' }));
+    expect(projects.scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
+  } finally {
+    if (root) await act(async () => { root.unmount(); });
+    host.remove();
+  }
 });
